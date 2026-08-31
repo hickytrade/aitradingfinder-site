@@ -34,9 +34,10 @@
   <div class="wrap">
     <div class="eyebrow">BLOG</div>
     <h1>Blog</h1>
-    <div class="empty-state" style="margin-top:20px;">
-      <p style="margin-bottom:6px;">v0.1では記事コンテンツは未実装です。</p>
-      <p style="margin:0;font-size:.85rem;">Content Agent（仕様のみ・未実装）が稼働すると、Prop Firm Databaseの検証済みデータから比較記事・レビュー・FAQ等を生成する予定です。それまでは架空の記事は掲載しません。</p>
+    <div id="articleList" style="margin-top:24px;"></div>
+    <div id="emptyState" class="empty-state" style="margin-top:20px;display:none;">
+      <p style="margin-bottom:6px;">現在、公開済みの記事はありません。</p>
+      <p style="margin:0;font-size:.85rem;">SEO Content Engineが公式一次情報を基に記事を作成していますが、人間によるレビュー・承認が完了するまで公開しません。架空の記事は掲載しません。</p>
     </div>
     <div style="margin-top:30px;">
       <a href="finder.html" class="btn btn-primary">代わりにAI診断を試す →</a>
@@ -55,8 +56,27 @@
 </footer>
 
 <script src="assets/data/propfirms.js"></script>
+<script src="assets/data/articles.js"></script>
 <script>
   document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+
+  // Only "published" articles ever render here — see assets/data/articles.js
+  // header comment. No script in this repo sets that status automatically.
+  const publishedArticles = BLOG_ARTICLES.filter(a => a.status === 'published');
+  const listEl = document.getElementById('articleList');
+  const emptyEl = document.getElementById('emptyState');
+  if (publishedArticles.length === 0) {
+    emptyEl.style.display = 'block';
+    listEl.innerHTML = '';
+  } else {
+    emptyEl.style.display = 'none';
+    listEl.innerHTML = publishedArticles.map(a => `
+      <div class="card" style="margin-bottom:16px;">
+        <h2 style="margin-bottom:6px;"><a href="${a.url}" style="color:inherit;">${a.title}</a></h2>
+        <p style="color:var(--text-muted);">${a.excerpt}</p>
+        <a href="${a.url}" class="btn btn-outline" style="margin-top:8px;">記事を読む →</a>
+      </div>`).join('');
+  }
 </script>
 <script src="assets/js/nav.js"></script>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prop Firm Comparison | AITradingFinder</title>
-<meta name="description" content="Prop Firmを条件別に比較。v0.1時点ではFintokeiを掲載しており、順次追加予定です。">
+<meta name="description" content="Fintokei / FTMO / FundedNext / The5ersをAI Provider Scoreや条件別に比較。一次情報で確認できた項目のみ掲載しています。">
 <link rel="canonical" href="https://aitradingfinder.com/comparison.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
   <div class="wrap">
     <div class="eyebrow">PROP FIRM COMPARISON</div>
     <h1>Prop Firm比較 / Best Prop Firms</h1>
-    <p style="max-width:64ch;">Prop Firm Database v0.1に登録済みの企業を一覧比較できます。まだ登録数が少ないv0.1段階では、AI Prop Firm Finderで個別診断を受けることを推奨します。</p>
+    <p style="max-width:64ch;">Prop Firm Databaseに登録済みの企業を一覧比較できます。価格・口座サイズは各社の表示通貨のまま掲載しており、通貨をまたいだ換算・優劣判定は行っていません。あなたに最も合う1社を知りたい場合は、AI Prop Firm Finderで個別診断を受けることを推奨します。</p>
 
     <div class="card" style="overflow-x:auto;margin-top:24px;">
       <table id="compareTable" class="stack"></table>
@@ -71,26 +71,78 @@ document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMER
 
 // Precompute best (highest-favorability) value per numeric column so it can
 // be highlighted — scales naturally from 1 firm today to N firms in Step 22.
-const minPrices = PROP_FIRMS.map(f => Math.min(...f.fact.plans.map(p => p.challenge_price_jpy)));
-const maxAccounts = PROP_FIRMS.map(f => Math.max(...f.fact.plans.map(p => p.account_size_jpy)));
+// Step 22-B note: FTMO/FundedNext/The5ers price in EUR/USD, not JPY like
+// Fintokei — comparing raw numbers across currencies would be meaningless
+// (and would silently invent an implied FX rate), so price/account-size
+// "best" highlighting is computed PER CURRENCY GROUP, never cross-currency.
+function planPrice(p) {
+  if (p.challenge_price_jpy != null) return { value: p.challenge_price_jpy, currency: 'JPY' };
+  if (p.challenge_price != null) return { value: p.challenge_price, currency: p.challenge_price_currency || '?' };
+  return null;
+}
+function planAccountSize(p) {
+  if (p.account_size_jpy != null) return { value: p.account_size_jpy, currency: 'JPY' };
+  if (p.account_size != null) return { value: p.account_size, currency: p.account_size_currency || '?' };
+  return null;
+}
+function minOf(infos) {
+  const valid = infos.filter(Boolean);
+  return valid.length ? valid.reduce((a, b) => (b.value < a.value ? b : a)) : null;
+}
+function maxOf(infos) {
+  const valid = infos.filter(Boolean);
+  return valid.length ? valid.reduce((a, b) => (b.value > a.value ? b : a)) : null;
+}
+const CURRENCY_SYMBOL = { JPY: '¥', USD: '$', EUR: '€' };
+function formatMoney(info) {
+  if (!info) return '未確認';
+  const sym = CURRENCY_SYMBOL[info.currency] || (info.currency + ' ');
+  return `${sym}${info.value.toLocaleString()}`;
+}
+
+const minPriceInfos = PROP_FIRMS.map(f => minOf(f.fact.plans.map(planPrice)));
+const maxAccountInfos = PROP_FIRMS.map(f => maxOf(f.fact.plans.map(planAccountSize)));
 const splits = PROP_FIRMS.map(f => f.fact.plans[0].profit_split_pct);
 const drawdowns = PROP_FIRMS.map(f => f.fact.plans[0].max_total_drawdown_pct);
-const bestMinPrice = Math.min(...minPrices);
-const bestMaxAccount = Math.max(...maxAccounts);
-const bestSplit = Math.max(...splits);
-const bestDrawdown = Math.min(...drawdowns); // lower drawdown allowance = stricter, so "best" here = highest (more room) — see note below
-const bestDrawdownRoom = Math.max(...drawdowns);
+
+function bestByCurrency(infos, pick) {
+  const map = {};
+  infos.forEach(info => {
+    if (!info) return;
+    const cur = map[info.currency];
+    if (cur === undefined || pick(info.value, cur)) map[info.currency] = info.value;
+  });
+  return map;
+}
+const bestMinPriceByCurrency = bestByCurrency(minPriceInfos, (v, cur) => v < cur);
+const bestMaxAccountByCurrency = bestByCurrency(maxAccountInfos, (v, cur) => v > cur);
+const bestSplit = Math.max(...splits.filter(v => v != null));
+const bestDrawdownRoom = Math.max(...drawdowns.filter(v => v != null));
+
+// Only Fintokei has a dedicated review page today; only APPROVED affiliate
+// links may render as a live (rel=sponsored) monetized CTA — everything
+// else falls back to the plain, non-monetized official site link so an
+// unapproved affiliate URL can never appear as a CTA.
+function reviewCell(f) {
+  if (f.id === 'fintokei') return '<a href="fintokei-review.html" class="btn btn-outline" style="padding:8px 14px;">レビュー</a>';
+  const url = f.fact.basic.official_url;
+  return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" class="btn btn-outline" style="padding:8px 14px;">公式サイト</a>` : '';
+}
 
 const rows = PROP_FIRMS.map((f, i) => {
   const ps = f.provider_score;
   const eaLabel = f.fact.ea_policy.self_created_or_self_managed_ea_allowed ? '<span class="tag ok">自作EA可</span>' : '<span class="tag unknown">未確認</span>';
+  const priceInfo = minPriceInfos[i];
+  const accountInfo = maxAccountInfos[i];
+  const isBestPrice = priceInfo && priceInfo.value === bestMinPriceByCurrency[priceInfo.currency];
+  const isBestAccount = accountInfo && accountInfo.value === bestMaxAccountByCurrency[accountInfo.currency];
   return `
     <tr>
       <td data-label="Prop Firm"><strong>${f.fact.basic.brand_name}</strong></td>
-      <td class="num${minPrices[i] === bestMinPrice ? ' best' : ''}" data-label="最安プラン価格">¥${minPrices[i].toLocaleString()}〜</td>
-      <td class="num${maxAccounts[i] === bestMaxAccount ? ' best' : ''}" data-label="最大資金">〜¥${maxAccounts[i].toLocaleString()}</td>
-      <td class="num${splits[i] === bestSplit ? ' best' : ''}" data-label="Profit Split">${splits[i]}%</td>
-      <td class="num${drawdowns[i] === bestDrawdownRoom ? ' best' : ''}" data-label="総合DD許容">${drawdowns[i]}%</td>
+      <td class="num${isBestPrice ? ' best' : ''}" data-label="最安プラン価格">${formatMoney(priceInfo)}〜</td>
+      <td class="num${isBestAccount ? ' best' : ''}" data-label="最大資金">〜${formatMoney(accountInfo)}</td>
+      <td class="num${splits[i] != null && splits[i] === bestSplit ? ' best' : ''}" data-label="Profit Split">${splits[i] != null ? splits[i] + '%' : '未確認'}</td>
+      <td class="num${drawdowns[i] != null && drawdowns[i] === bestDrawdownRoom ? ' best' : ''}" data-label="総合DD許容">${drawdowns[i] != null ? drawdowns[i] + '%' : '未確認'}</td>
       <td data-label="EA">${eaLabel}</td>
       <td data-label="AI Provider Score">
         <div class="table-score-cell">
@@ -98,7 +150,7 @@ const rows = PROP_FIRMS.map((f, i) => {
           <span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:${ps.overall_provider_score}%"></span></span>
         </div>
       </td>
-      <td data-label=""><a href="fintokei-review.html" class="btn btn-outline" style="padding:8px 14px;">レビュー</a></td>
+      <td data-label="">${reviewCell(f)}</td>
     </tr>`;
 }).join('');
 

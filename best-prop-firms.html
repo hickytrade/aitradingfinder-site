@@ -39,7 +39,7 @@
     <div id="rankingList" style="margin-top:30px;"></div>
 
     <div class="empty-state" style="margin-top:24px;">
-      <p style="margin:0;">v0.1時点の登録数は1社（Fintokei）です。一次情報の検証が完了した企業から順次追加します。</p>
+      <p style="margin:0;">現在4社（Fintokei / FTMO / FundedNext / The5ers）を掲載しています。一次情報の検証が完了した企業から順次追加します。</p>
     </div>
   </div>
 </section>
@@ -64,6 +64,22 @@ document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMER
 const standardAnswers = { instrument: 'multiple', accountSize: 10000000, style: 'manual', priority: null, risk: 'balanced' };
 const ranked = matchFirms(standardAnswers, PROP_FIRMS);
 
+// Only Fintokei has a review page today; only an APPROVED affiliate_link may
+// render as a monetized (rel=sponsored) CTA — everything else falls back to
+// the plain official site link so an unapproved affiliate URL is never
+// generated or displayed as a CTA.
+function reviewLink(firm) {
+  return firm.id === 'fintokei' ? '<a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>' : '';
+}
+function officialCta(firm) {
+  const approved = firm.affiliate_link && firm.affiliate_link.status === 'APPROVED';
+  if (approved) {
+    return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイト →</a>`;
+  }
+  const url = firm.fact.basic.official_url;
+  return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" class="btn btn-primary">公式サイトを見る →</a>` : '';
+}
+
 document.getElementById('rankingList').innerHTML = ranked.map((r, idx) => `
   <div class="prop-card${idx === 0 ? ' prop-card--top' : ''}" style="margin-bottom:16px;">
     <div class="prop-card-head">
@@ -71,15 +87,15 @@ document.getElementById('rankingList').innerHTML = ranked.map((r, idx) => `
       <div class="prop-logo">${r.firm.fact.basic.brand_name.charAt(0)}</div>
       <div style="flex:1;min-width:160px;">
         <div class="prop-card-name">${r.firm.fact.basic.brand_name}</div>
-        <div class="prop-card-sub">${r.firm.fact.trading_style.note.split('。')[0]}。</div>
+        <div class="prop-card-sub">${(r.firm.fact.trading_style.note || '').split('。')[0]}。</div>
       </div>
       <div class="prop-card-score">
         <div class="gauge" data-pct="${r.score}"><span class="gauge-num">${r.score}</span></div>
       </div>
     </div>
     <div class="prop-card-cta">
-      <a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>
-      <a href="${r.firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイト →</a>
+      ${reviewLink(r.firm)}
+      ${officialCta(r.firm)}
     </div>
   </div>
 `).join('');

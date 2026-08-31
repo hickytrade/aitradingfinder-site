@@ -271,8 +271,25 @@ function showResults() {
     return;
   }
 
+  // Only Fintokei has a review page today; only an APPROVED affiliate_link
+  // may render as a monetized (rel=sponsored) CTA — everything else falls
+  // back to the plain official site link so an unapproved affiliate URL is
+  // never generated or displayed as a CTA.
+  function reviewLink(firm) {
+    return firm.id === 'fintokei' ? '<a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>' : '';
+  }
+  function officialCta(firm) {
+    const approved = firm.affiliate_link && firm.affiliate_link.status === 'APPROVED';
+    if (approved) {
+      return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">View ${firm.fact.basic.brand_name}（公式）→</a>`;
+    }
+    const url = firm.fact.basic.official_url;
+    return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" class="btn btn-primary">${firm.fact.basic.brand_name}公式サイトを見る →</a>` : '';
+  }
+
   list.innerHTML = ranked.map((r, idx) => {
     const topReasons = r.breakdown.slice(0, 3).map(b => `${b.label}(${b.subscore})`).join(' / ');
+    const approved = r.firm.affiliate_link && r.firm.affiliate_link.status === 'APPROVED';
     return `
       <div class="prop-card result-card${idx === 0 ? ' prop-card--top' : ''}" style="margin-bottom:18px;">
         <div class="prop-card-head">
@@ -295,11 +312,11 @@ function showResults() {
             </div>`).join('')}
         </div>
         <div class="prop-card-cta">
-          <a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>
-          <a href="${r.firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">View ${r.firm.fact.basic.brand_name}（公式）→</a>
+          ${reviewLink(r.firm)}
+          ${officialCta(r.firm)}
         </div>
         <div class="disclosure">
-          広告・アフィリエイトリンクです。本スコアはAITradingFinder独自の算出ロジックによる参考値であり、利益を保証するものではありません。
+          ${approved ? '広告・アフィリエイトリンクです。' : 'アフィリエイト未提携のため公式サイトへの通常リンクです。'}本スコアはAITradingFinder独自の算出ロジックによる参考値であり、利益を保証するものではありません。
         </div>
       </div>`;
   }).join('');
