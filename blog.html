@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | AITradingFinder</title>
+<meta name="description" content="AITradingFinderのブログ。Prop Firm選びに役立つ記事を順次公開予定です。">
+<link rel="canonical" href="https://aitradingfinder.com/blog.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand"><span class="brand-mark">AI</span>AITradingFinder</a>
+    <ul class="nav-links">
+      <li><a href="finder.html">AI Prop Firm Finder</a></li>
+      <li><a href="comparison.html">比較</a></li>
+      <li><a href="fintokei-review.html">Fintokeiレビュー</a></li>
+      <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
+      <li><a href="blog.html" class="active">ブログ</a></li>
+    </ul>
+    <a href="finder.html" class="nav-cta">無料AI診断</a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel"></div>
+</nav>
+
+<section style="padding-top:56px;">
+  <div class="wrap">
+    <div class="eyebrow">BLOG</div>
+    <h1>Blog</h1>
+    <div class="empty-state" style="margin-top:20px;">
+      <p style="margin-bottom:6px;">v0.1では記事コンテンツは未実装です。</p>
+      <p style="margin:0;font-size:.85rem;">Content Agent（仕様のみ・未実装）が稼働すると、Prop Firm Databaseの検証済みデータから比較記事・レビュー・FAQ等を生成する予定です。それまでは架空の記事は掲載しません。</p>
+    </div>
+    <div style="margin-top:30px;">
+      <a href="finder.html" class="btn btn-primary">代わりにAI診断を試す →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-disclaimers" id="disclaimers"></div>
+    <div class="footer-bottom">
+      <span>© 2026 AITradingFinder</span>
+      <span>AITradingFinder is an independent comparison and discovery platform.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data/propfirms.js"></script>
+<script>
+document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+</script>
+<script src="assets/js/nav.js"></script>
+</body>
+</html>

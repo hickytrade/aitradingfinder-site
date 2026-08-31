@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fintokei（フィントケイ）レビュー | AITradingFinder</title>
+<meta name="description" content="Fintokeiのチャレンジプラン（ProTrader）の価格・ルール・EA可否・アフィリエイト条件を公式一次情報に基づいて解説。">
+<link rel="canonical" href="https://aitradingfinder.com/fintokei-review.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "FintokeiのEA（自動売買）は許可されていますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "公式チャレンジプランページによると、EA使用を含む取引スタイルに関係なく取引が可能とされています。ただし第三者のシグナルやEAを完全にコピーする行為、第三者への口座運用委託は公式に禁止されています。" }
+    },
+    {
+      "@type": "Question",
+      "name": "Fintokeiのアフィリエイト報酬率はどのくらいですか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "公式アフィリエイトページによると、紹介人数に応じて10%〜15%（1人で10%、20人以上で12%、50人以上で15%）で、同一顧客の再購入も報酬対象です。" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand"><span class="brand-mark">AI</span>AITradingFinder</a>
+    <ul class="nav-links">
+      <li><a href="finder.html">AI Prop Firm Finder</a></li>
+      <li><a href="comparison.html">比較</a></li>
+      <li><a href="fintokei-review.html" class="active">Fintokeiレビュー</a></li>
+      <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+    </ul>
+    <a href="finder.html" class="nav-cta">無料AI診断</a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel"></div>
+</nav>
+
+<section style="padding-top:56px;">
+  <div class="wrap">
+    <div class="eyebrow">PROP FIRM REVIEW</div>
+    <h1>Fintokei（フィントケイ）レビュー</h1>
+    <p style="max-width:64ch;">本ページはFintokeiの公式サイト・公式FAQを一次情報として作成した独立系レビューです。<strong>AITradingFinderはFintokeiの公式サイトではありません。</strong>価格・ルールは変更される可能性があるため、最終確認は必ず公式サイトで行ってください。</p>
+    <div class="card" style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:24px 0 40px;">
+      <div style="font-family:var(--font-mono);font-size:.82rem;color:var(--text-faint);" id="verifiedLine"></div>
+      <a id="officialLink" href="#" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイトで見る →</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap grid-2">
+    <div class="card">
+      <h3>会社概要</h3>
+      <table id="basicTable"></table>
+    </div>
+    <div class="card">
+      <h3>アフィリエイトプログラム（公式）</h3>
+      <p id="affiliateText" style="color:var(--text)"></p>
+      <p style="font-size:.78rem;color:var(--text-faint);">出典：<span class="mono" id="affiliateSource"></span></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>チャレンジプラン（ProTrader）料金表</h2>
+    <p>公式サイトに掲載されている7段階のアカウントサイズ。プラン価格・ルールは共通です。</p>
+    <div class="card" style="overflow-x:auto;">
+      <table id="plansTable"></table>
+    </div>
+    <p style="font-size:.78rem;color:var(--text-faint);margin-top:10px;" id="plansSource"></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap grid-2">
+    <div class="card">
+      <h3>取引条件</h3>
+      <div id="conditionsTags" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <p style="margin-top:16px;font-size:.85rem;" id="conditionsNote"></p>
+    </div>
+    <div class="card">
+      <h3>プラットフォーム構成</h3>
+      <div id="platformTags" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <p style="margin-top:16px;font-size:.85rem;" id="platformNote"></p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap grid-2">
+    <div class="card">
+      <h3>EAポリシー（自作 / 第三者）</h3>
+      <div id="eaTags" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <p style="margin-top:16px;font-size:.85rem;" id="eaNote"></p>
+    </div>
+    <div class="card">
+      <h3>ヘッジ・裁定取引ポリシー</h3>
+      <div id="hedgeTags" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <p style="margin-top:16px;font-size:.85rem;" id="hedgeNote"></p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap grid-2">
+    <div class="card">
+      <h3>KYC（本人確認）</h3>
+      <div id="kycTags" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <p style="margin-top:16px;font-size:.85rem;" id="kycNote"></p>
+      <div id="kycUnverifiedNotes" style="margin-top:12px;"></div>
+    </div>
+    <div class="card">
+      <h3>リスク・制限</h3>
+      <p style="font-size:.85rem;">最低年齢：<span class="mono" id="minAge"></span></p>
+      <p style="font-size:.85rem;">1人1プロフィールのみ：<span class="mono" id="oneProfile"></span></p>
+      <p style="font-size:.85rem;">登録不可（恒久的）：<span id="restrictedFull"></span></p>
+      <p style="font-size:.85rem;">登録不可（一時的）：<span id="restrictedTemp"></span></p>
+      <div id="risksList"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>AITradingFinder Provider Score（サービス品質評価）</h2>
+    <p>以下はFintokei公式の評価ではなく、fact（公式一次情報）を基にしたAITradingFinder独自の「サービス自体の品質」評価です。<strong>ユーザー個別の適合度（User Match Score）や、アフィリエイト収益性（Business Score）とは完全に分離されています。</strong>未確認項目は中立値（50点）として扱っています。</p>
+    <div class="card">
+      <div id="evalBars"></div>
+      <p style="font-size:.76rem;color:var(--text-faint);margin-top:16px;" id="evalMethod"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap card" style="text-align:center;">
+    <h2>あなたに合うか、AIで診断する</h2>
+    <p>Fintokeiがあなたのトレードスタイルに本当に合っているか、5つの質問で確認できます。</p>
+    <a href="finder.html" class="btn btn-primary">Start Free AI Matching →</a>
+    <div class="disclosure" style="max-width:60ch;margin:20px auto 0;">
+      本ページの公式サイトリンクはアフィリエイトリンク（広告）です。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-disclaimers" id="disclaimers"></div>
+    <div class="footer-bottom">
+      <span>© 2026 AITradingFinder</span>
+      <span>AITradingFinder is an independent comparison and discovery platform.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data/propfirms.js"></script>
+<script>
+document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+
+const firm = PROP_FIRMS.find(x => x.id === 'fintokei');
+const fact = firm.fact;
+const b = fact.basic;
+
+document.getElementById('verifiedLine').textContent = `最終確認日: ${firm.provider_score.last_verified_date} ／ 出典: ${b.official_url}`;
+document.getElementById('officialLink').href = firm.affiliate_link.display_url;
+
+const naOrValue = (v) => (v === null || v === undefined) ? '<span class="tag unknown">未確認</span>' : v;
+
+document.getElementById('basicTable').innerHTML = `
+  <tr><th>会社名</th><td>${b.company_name}</td></tr>
+  <tr><th>国</th><td>${b.country}</td></tr>
+  <tr><th>設立</th><td>${naOrValue(b.founded)}</td></tr>
+  <tr><th>公式サイト</th><td class="mono">${b.official_url}</td></tr>
+  <tr><th>取得日</th><td class="mono">${b.fetched_at}</td></tr>
+`;
+
+document.getElementById('affiliateText').textContent = b.affiliate_commission + ' ' + b.affiliate_conditions;
+document.getElementById('affiliateSource').textContent = b.source_urls.affiliate_program;
+
+const plans = fact.plans;
+const groups = [...new Set(plans.map(p => p.plan_group))];
+document.getElementById('plansTable').innerHTML = groups.map(g => {
+  const groupPlans = plans.filter(p => p.plan_group === g);
+  const rows = groupPlans.map(p => {
+    const targets = [p.profit_target_step1_pct, p.profit_target_step2_pct, p.profit_target_step3_pct]
+      .filter(v => v !== undefined && v !== null).map(v => v + '%').join(' / ');
+    const split = p.profit_split_pct !== null && p.profit_split_pct !== undefined
+      ? p.profit_split_pct + '%'
+      : `<span class="tag unknown">${p.profit_split_note || '成果連動'}</span>`;
+    return `
+    <tr>
+      <td>${p.plan_name.replace(g + '— ', '')}</td>
+      <td class="num">¥${p.account_size_jpy.toLocaleString()}</td>
+      <td class="num">¥${p.challenge_price_jpy.toLocaleString()}</td>
+      <td class="num">${p.evaluation_steps}ステップ</td>
+      <td class="num">${targets}</td>
+      <td class="num">${p.max_daily_drawdown_pct}%</td>
+      <td class="num">${p.max_total_drawdown_pct}%</td>
+      <td class="num">${p.max_leverage}倍</td>
+      <td class="num">${split}</td>
+    </tr>`;
+  }).join('');
+  return `
+    <tr><th colspan="9" style="background:var(--surface-2);border-bottom:none;padding-top:20px;">${g}</th></tr>
+    <tr><th>プラン</th><th>資金</th><th>価格(税込)</th><th>評価</th><th>利益目標</th><th>日次DD</th><th>総合DD</th><th>レバレッジ</th><th>Profit Split</th></tr>
+    ${rows}`;
+}).join('');
+document.getElementById('plansSource').textContent = `出典: ${Object.values(fact.plans_source.source_urls).join(' / ')} （取得日: ${fact.plans_source.fetched_at}）`;
+
+const condTag = (label, val) => {
+  let cls, text;
+  if (val === true) { cls = 'ok'; text = `${label} 可`; }
+  else if (val === false) { cls = 'no'; text = `${label} 不可`; }
+  else if (val === null || val === undefined) { cls = 'unknown'; text = `${label} 未確認`; }
+  else { cls = 'unknown'; text = `${label} ${val}`; }
+  return `<span class="tag ${cls}">${text}</span>`;
+};
+
+// 取引条件（銘柄 + スタイル）
+const inst = fact.instruments;
+const style = fact.trading_style;
+document.getElementById('conditionsTags').innerHTML = [
+  condTag('Forex', inst.forex), condTag('Gold', inst.gold_metals), condTag('Crypto CFD', inst.crypto_cfd),
+  condTag('Indices', inst.indices), condTag('株式CFD', inst.stock_cfd),
+  condTag('スキャルピング', style.scalping_allowed), condTag('ニュース取引', style.news_trading_allowed),
+  condTag('週末保有', style.weekend_trading_allowed), condTag('オーバーナイト', style.overnight_trading_allowed)
+].join('');
+document.getElementById('conditionsNote').textContent = style.note + `（出典: ${style.source_urls.style} 他 / 取得日: ${style.fetched_at}）`;
+
+// プラットフォーム構成（TradingViewはcTrader経由という構造を正確に表示）
+const pp = fact.platform_policy;
+const lev = fact.leverage;
+document.getElementById('platformTags').innerHTML = [
+  ...pp.native_platforms.map(p => `<span class="tag ok">${p}（ネイティブ対応）</span>`),
+  pp.tradingview_access === 'via_ctrader_only'
+    ? `<span class="tag unknown">TradingView：cTrader経由のみ（独立プラットフォームではない）</span>`
+    : condTag('TradingView', null),
+  `<span class="tag ok">レバレッジ：チャレンジ最大${lev.challenge_plan_max}倍 / 入門・速攻最大${lev.starttrader_plan_max}倍</span>`
+].join('');
+document.getElementById('platformNote').textContent = pp.note + `（出典: ${pp.source_url} / 取得日: ${pp.fetched_at}）`;
+
+// EAポリシー（自作 vs 第三者）
+const ea = fact.ea_policy;
+document.getElementById('eaTags').innerHTML = [
+  condTag('自作・自己管理EA', ea.self_created_or_self_managed_ea_allowed),
+  condTag('第三者EA/シグナルの完全コピー', ea.third_party_ea_or_signal_copying_allowed),
+  condTag('購入した第三者EAのカスタマイズ利用', ea.third_party_purchased_ea_customized_allowed)
+].join('');
+document.getElementById('eaNote').textContent = ea.note + `（出典: ${Object.values(ea.source_urls).join(' / ')} / 取得日: ${ea.fetched_at}）`;
+
+// ヘッジ・裁定取引ポリシー
+const hp = fact.hedging_policy;
+document.getElementById('hedgeTags').innerHTML = [
+  condTag('同一口座内ヘッジ', hp.same_account_hedging_allowed),
+  condTag('複数口座間ヘッジ', hp.cross_account_hedging_allowed),
+  condTag('複数顧客間ヘッジ', hp.cross_client_hedging_allowed),
+  condTag('ヘッジ・アービトラージ', hp.hedge_arbitrage_allowed)
+].join('');
+document.getElementById('hedgeNote').textContent = hp.note + `（出典: ${Object.values(hp.source_urls).join(' / ')} / 取得日: ${hp.fetched_at}）`;
+
+// KYC（アフィリエイト報酬 vs パフォーマンス報酬を分離）
+const kyc = fact.kyc_policy;
+document.getElementById('kycTags').innerHTML = [
+  condTag('アフィリエイト報酬出金にKYC必須', kyc.affiliate_payout_kyc_required),
+  condTag('パフォーマンス報酬出金にKYC必須', kyc.performance_reward_payout_kyc_required),
+  condTag('取引開始時にKYC必須', kyc.trading_account_kyc_required_to_start)
+].join('');
+document.getElementById('kycNote').textContent = `アフィリエイト報酬出金KYCは公式一次情報で確認済み（出典: ${kyc.affiliate_payout_kyc_source_url} / 取得日: ${kyc.affiliate_payout_kyc_fetched_at}）。パフォーマンス報酬出金・取引開始時KYCは公式一次情報で未確認のためnullのまま。`;
+if (kyc.unverified_third_party_notes && kyc.unverified_third_party_notes.length) {
+  document.getElementById('kycUnverifiedNotes').innerHTML = kyc.unverified_third_party_notes
+    .map(n => `<p class="disclosure" style="border-top:none;margin-top:0;padding-top:0;">${n}</p>`).join('');
+}
+
+const rr = fact.risk_restrictions;
+document.getElementById('minAge').textContent = rr.min_age + '歳以上';
+document.getElementById('oneProfile').textContent = rr.one_profile_per_person ? 'はい（公式ルール）' : '未確認';
+document.getElementById('restrictedFull').textContent = rr.restricted_countries_full.join('、');
+document.getElementById('restrictedTemp').textContent = rr.restricted_countries_temporary.join('、');
+document.getElementById('risksList').innerHTML = '<ul style="font-size:.85rem;color:var(--text-muted);padding-left:18px;">' +
+  rr.important_risks.map(r => `<li>${r}</li>`).join('') + '</ul>';
+
+// Provider Score（ユーザー非依存・Affiliateを含まない）
+const ps = firm.provider_score;
+const evalItems = [
+  ['コスト', ps.cost_score], ['ドローダウン', ps.drawdown_score], ['取引の自由度', ps.trading_flexibility_score],
+  ['EA対応', ps.ea_score], ['報酬・出金', ps.payout_score], ['プラットフォーム', ps.platform_score],
+  ['ルールの明確さ', ps.rule_score]
+];
+document.getElementById('evalBars').innerHTML = evalItems.map(([label, score]) => `
+  <div class="gauge-bar-row" style="grid-template-columns:120px 1fr 34px;">
+    <span>${label}</span>
+    <span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:${score}%"></span></span>
+    <span>${score}</span>
+  </div>`).join('') + `
+  <div class="gauge-bar-row" style="grid-template-columns:120px 1fr 34px;margin-top:6px;border-top:1px dashed var(--border);padding-top:10px;">
+    <span style="color:var(--gold);">総合Provider Score</span>
+    <span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:${ps.overall_provider_score}%"></span></span>
+    <span style="color:var(--gold);">${ps.overall_provider_score}</span>
+  </div>`;
+document.getElementById('evalMethod').textContent = ps.methodology_note;
+</script>
+<script src="assets/js/nav.js"></script>
+</body>
+</html>

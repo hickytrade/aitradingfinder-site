@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prop Firm Comparison | AITradingFinder</title>
+<meta name="description" content="Prop Firmを条件別に比較。v0.1時点ではFintokeiを掲載しており、順次追加予定です。">
+<link rel="canonical" href="https://aitradingfinder.com/comparison.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand"><span class="brand-mark">AI</span>AITradingFinder</a>
+    <ul class="nav-links">
+      <li><a href="finder.html">AI Prop Firm Finder</a></li>
+      <li><a href="comparison.html" class="active">比較</a></li>
+      <li><a href="fintokei-review.html">Fintokeiレビュー</a></li>
+      <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
+      <li><a href="blog.html">ブログ</a></li>
+    </ul>
+    <a href="finder.html" class="nav-cta">無料AI診断</a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel"></div>
+</nav>
+
+<section style="padding-top:56px;">
+  <div class="wrap">
+    <div class="eyebrow">PROP FIRM COMPARISON</div>
+    <h1>Prop Firm比較 / Best Prop Firms</h1>
+    <p style="max-width:64ch;">Prop Firm Database v0.1に登録済みの企業を一覧比較できます。まだ登録数が少ないv0.1段階では、AI Prop Firm Finderで個別診断を受けることを推奨します。</p>
+
+    <div class="card" style="overflow-x:auto;margin-top:24px;">
+      <table id="compareTable"></table>
+    </div>
+
+    <div id="emptyMore" class="empty-state" style="margin-top:24px;">
+      <p style="margin-bottom:6px;">他のProp Firmは現在調査・検証中です（一次情報の確認が完了したもののみ掲載します）。</p>
+      <p style="margin:0;font-size:.82rem;">架空のデータや未検証の情報は掲載しません。追加され次第、取得日・出典とともに表示します。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap card" style="text-align:center;">
+    <h2>条件が近いProp Firmを診断で探す</h2>
+    <p>登録企業が増えても、あなたに合うかどうかはAI Prop Firm Finderで確認するのが最も確実です。</p>
+    <a href="finder.html" class="btn btn-primary">Start Free AI Matching →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-disclaimers" id="disclaimers"></div>
+    <div class="footer-bottom">
+      <span>© 2026 AITradingFinder</span>
+      <span>AITradingFinder is an independent comparison and discovery platform.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data/propfirms.js"></script>
+<script>
+document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+
+const rows = PROP_FIRMS.map(f => {
+  const ps = f.provider_score;
+  const minPrice = Math.min(...f.fact.plans.map(p => p.challenge_price_jpy));
+  const maxAccount = Math.max(...f.fact.plans.map(p => p.account_size_jpy));
+  const eaLabel = f.fact.ea_policy.self_created_or_self_managed_ea_allowed ? '<span class="tag ok">自作EA可</span>' : '<span class="tag unknown">未確認</span>';
+  return `
+    <tr>
+      <td><strong>${f.fact.basic.brand_name}</strong></td>
+      <td class="num">¥${minPrice.toLocaleString()}〜</td>
+      <td class="num">〜¥${maxAccount.toLocaleString()}</td>
+      <td class="num">${f.fact.plans[0].profit_split_pct}%</td>
+      <td class="num">${f.fact.plans[0].max_total_drawdown_pct}%</td>
+      <td>${eaLabel}</td>
+      <td><a href="fintokei-review.html" class="btn btn-outline" style="padding:8px 14px;">レビュー</a></td>
+    </tr>`;
+}).join('');
+
+document.getElementById('compareTable').innerHTML = `
+  <tr><th>Prop Firm</th><th>最安プラン価格</th><th>最大資金</th><th>Profit Split</th><th>総合DD</th><th>EA</th><th></th></tr>
+  ${rows}
+`;
+</script>
+<script src="assets/js/nav.js"></script>
+</body>
+</html>
