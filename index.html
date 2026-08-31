@@ -62,8 +62,9 @@
 
     <div class="gauge-card">
       <div class="gauge-wrap">
-        <div class="gauge" style="--pct:94"><span class="gauge-num">94</span></div>
+        <div class="gauge" data-pct="94"><span class="gauge-num">94</span></div>
         <div class="gauge-meta">
+          <div class="ai-match-label">AI Match Score</div>
           <div class="rank-badge">#1 MATCH（サンプル）</div>
           <div class="firm-name">Fintokei</div>
           <div class="why">EA対応 / ドローダウン許容 / 口座サイズ選択肢 が一致</div>
@@ -74,17 +75,19 @@
         <div class="gauge-bar-row"><span>ドローダウン</span><span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:70%"></span></span><span>70</span></div>
         <div class="gauge-bar-row"><span>報酬・出金</span><span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:80%"></span></span><span>80</span></div>
       </div>
-      <p style="font-size:.72rem;color:var(--text-faint);margin:14px 0 0;">※上記はAI Prop Firm Finderの結果画面イメージです。実際のスコアは回答内容によって変わります。</p>
+      <p style="font-size:var(--text-xs);color:var(--text-faint);margin:16px 0 0;">※上記はAI Prop Firm Finderの結果画面イメージです。実際のスコアは回答内容によって変わります。</p>
     </div>
   </div>
 </header>
 
 <section>
   <div class="wrap">
-    <div class="eyebrow">HOW IT WORKS</div>
-    <h2>最初の1歩は、5つの質問だけ。</h2>
-    <p style="max-width:60ch">AI Prop Firm Finderに答えると、AI Match Scoreエンジンがあなたの回答に合わせて評価の重み付けを変え、Prop Firm Databaseと照合。TOP候補を根拠つきで提示します。</p>
-    <div class="flow" style="margin-top:24px">
+    <div class="section-head">
+      <div class="eyebrow">HOW IT WORKS</div>
+      <h2>最初の1歩は、5つの質問だけ。</h2>
+      <p>AI Prop Firm Finderに答えると、AI Match Scoreエンジンがあなたの回答に合わせて評価の重み付けを変え、Prop Firm Databaseと照合。TOP候補を根拠つきで提示します。</p>
+    </div>
+    <div class="flow">
       <span class="node">ユーザー情報入力</span><span class="arrow">→</span>
       <span class="node">AI Match Score計算</span><span class="arrow">→</span>
       <span class="node">おすすめProp Firm</span><span class="arrow">→</span>
@@ -96,24 +99,34 @@
 
 <section>
   <div class="wrap">
-    <div class="eyebrow">FEATURED</div>
-    <h2>最初の掲載候補：Fintokei</h2>
+    <div class="section-head">
+      <div class="eyebrow">FEATURED</div>
+      <h2>最初の掲載候補：Fintokei</h2>
+    </div>
     <div class="grid-2">
-      <div class="card">
-        <h3>Fintokei（チャレンジプラン）</h3>
-        <p>初期最大デモ運用資金5,000万円、2ステップ評価、Profit Split 80%。スキャルピング・EA・ニュース取引も公式に許可されているプランです。</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+      <div class="prop-card">
+        <div class="prop-card-head">
+          <div class="prop-logo">F</div>
+          <div>
+            <div class="prop-card-name">Fintokei（チャレンジプラン）</div>
+            <div class="prop-card-sub">初期最大デモ運用資金5,000万円 / 2ステップ評価 / Profit Split 80%</div>
+          </div>
+        </div>
+        <p>スキャルピング・EA・ニュース取引も公式に許可されているプランです。</p>
+        <div class="prop-card-tags">
           <span class="tag ok">EA可</span>
           <span class="tag ok">スキャルピング可</span>
           <span class="tag ok">ニュース取引可</span>
           <span class="tag ok">MT4/MT5/cTrader（TradingViewはcTrader経由）</span>
         </div>
-        <a href="fintokei-review.html" class="btn btn-outline">詳細レビューを読む</a>
+        <div class="prop-card-cta">
+          <a href="fintokei-review.html" class="btn btn-outline">詳細レビューを読む</a>
+        </div>
       </div>
       <div class="card">
         <h3>なぜFintokeiから始めるのか</h3>
         <p>公式アフィリエイトプログラム（最大15%報酬・再購入も対象）が明確に整備されており、公式情報（価格・ルール）の取得と検証がしやすいため、v0.1のデータベース第一候補としています。</p>
-        <p style="font-size:.82rem;">情報取得日：2026-08-28 ／ 出典：<span class="mono">fintokei.com（公式）</span></p>
+        <p style="font-size:var(--text-sm);">情報取得日：2026-08-28 ／ 出典：<span class="mono">fintokei.com（公式）</span></p>
       </div>
     </div>
   </div>
@@ -140,6 +153,10 @@
 <script src="assets/data/propfirms.js"></script>
 <script>
   document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+</script>
+<script src="assets/js/ui.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () { AITF_UI.animateGauges(); });
 </script>
 <script src="assets/js/nav.js"></script>
 </body>

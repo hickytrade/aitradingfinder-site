@@ -19,7 +19,7 @@
       <li><a href="finder.html">AI Prop Firm Finder</a></li>
       <li><a href="comparison.html">比較</a></li>
       <li><a href="fintokei-review.html">Fintokeiレビュー</a></li>
-      <li><a href="best-prop-firms.html" class="active">Best Prop Firms</a></li>
+      <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
       <li><a href="blog.html">ブログ</a></li>
     </ul>
     <a href="finder.html" class="nav-cta">無料AI診断</a>
@@ -56,6 +56,7 @@
 
 <script src="assets/data/propfirms.js"></script>
 <script src="assets/js/matchscore.js"></script>
+<script src="assets/js/ui.js"></script>
 <script>
 document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
 
@@ -64,17 +65,26 @@ const standardAnswers = { instrument: 'multiple', accountSize: 10000000, style: 
 const ranked = matchFirms(standardAnswers, PROP_FIRMS);
 
 document.getElementById('rankingList').innerHTML = ranked.map((r, idx) => `
-  <div class="card" style="margin-bottom:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-    <div class="gauge" style="--pct:${r.score}"><span class="gauge-num">${r.score}</span></div>
-    <div style="flex:1;min-width:200px;">
+  <div class="prop-card${idx === 0 ? ' prop-card--top' : ''}" style="margin-bottom:16px;">
+    <div class="prop-card-head">
       <div class="rank-badge">#${idx + 1}</div>
-      <h3 style="margin-bottom:4px;">${r.firm.fact.basic.brand_name}</h3>
-      <p style="margin:0;font-size:.85rem;">${r.firm.fact.trading_style.note.split('。')[0]}。</p>
+      <div class="prop-logo">${r.firm.fact.basic.brand_name.charAt(0)}</div>
+      <div style="flex:1;min-width:160px;">
+        <div class="prop-card-name">${r.firm.fact.basic.brand_name}</div>
+        <div class="prop-card-sub">${r.firm.fact.trading_style.note.split('。')[0]}。</div>
+      </div>
+      <div class="prop-card-score">
+        <div class="gauge" data-pct="${r.score}"><span class="gauge-num">${r.score}</span></div>
+      </div>
     </div>
-    <a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>
-    <a href="${r.firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイト →</a>
+    <div class="prop-card-cta">
+      <a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>
+      <a href="${r.firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイト →</a>
+    </div>
   </div>
 `).join('');
+
+AITF_UI.animateGauges();
 </script>
 <script src="assets/js/nav.js"></script>
 </body>

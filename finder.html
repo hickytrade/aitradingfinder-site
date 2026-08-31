@@ -16,7 +16,7 @@
   <div class="wrap">
     <a href="index.html" class="brand"><span class="brand-mark">AI</span>AITradingFinder</a>
     <ul class="nav-links">
-      <li><a href="finder.html" class="active">AI Prop Firm Finder</a></li>
+      <li><a href="finder.html">AI Prop Firm Finder</a></li>
       <li><a href="comparison.html">比較</a></li>
       <li><a href="fintokei-review.html">Fintokeiレビュー</a></li>
       <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
@@ -38,6 +38,7 @@
       <h1 style="font-size:1.8rem;margin-bottom:6px;">5つの質問で、あなたに合うProp Firmを診断</h1>
       <p style="margin-bottom:30px;">回答内容はこの画面内でのみ処理され、外部には送信されません（v0.1はローカル計算のみ）。</p>
 
+      <div class="quiz-progress-row"><span id="stepLabel">QUESTION 01 / 05</span><span id="stepPct">20%</span></div>
       <div class="quiz-progress" id="progress"></div>
 
       <!-- Q1 -->
@@ -45,11 +46,11 @@
         <div class="q-label">Q1 / 5</div>
         <h2>What do you trade?</h2>
         <div class="options" data-key="instrument">
-          <div class="option" data-value="forex"><span class="option-label">Forex</span></div>
-          <div class="option" data-value="gold"><span class="option-label">Gold</span></div>
-          <div class="option" data-value="crypto"><span class="option-label">Crypto</span></div>
-          <div class="option" data-value="indices"><span class="option-label">Indices</span></div>
-          <div class="option" data-value="multiple"><span class="option-label">Multiple</span></div>
+          <div class="option" data-value="forex" data-icon="exchange"><span class="option-icon"></span><span class="option-label">Forex</span></div>
+          <div class="option" data-value="gold" data-icon="coin"><span class="option-icon"></span><span class="option-label">Gold</span></div>
+          <div class="option" data-value="crypto" data-icon="crypto"><span class="option-icon"></span><span class="option-label">Crypto</span></div>
+          <div class="option" data-value="indices" data-icon="indices"><span class="option-icon"></span><span class="option-label">Indices</span></div>
+          <div class="option" data-value="multiple" data-icon="multiple"><span class="option-icon"></span><span class="option-label">Multiple</span></div>
         </div>
       </div>
 
@@ -58,10 +59,10 @@
         <div class="q-label">Q2 / 5</div>
         <h2>What is your preferred account size?</h2>
         <div class="options" data-key="accountSize">
-          <div class="option" data-value="1000000"><span class="option-label">〜100万円</span></div>
-          <div class="option" data-value="5000000"><span class="option-label">200万〜500万円</span></div>
-          <div class="option" data-value="10000000"><span class="option-label">1,000万円前後</span></div>
-          <div class="option" data-value="20000000"><span class="option-label">2,000万円以上</span></div>
+          <div class="option" data-value="1000000" data-icon="wallet"><span class="option-icon"></span><span class="option-label">〜100万円</span></div>
+          <div class="option" data-value="5000000" data-icon="wallet"><span class="option-icon"></span><span class="option-label">200万〜500万円</span></div>
+          <div class="option" data-value="10000000" data-icon="wallet"><span class="option-icon"></span><span class="option-label">1,000万円前後</span></div>
+          <div class="option" data-value="20000000" data-icon="wallet"><span class="option-icon"></span><span class="option-label">2,000万円以上</span></div>
         </div>
       </div>
 
@@ -70,11 +71,11 @@
         <div class="q-label">Q3 / 5</div>
         <h2>How do you trade?</h2>
         <div class="options" data-key="style">
-          <div class="option" data-value="manual"><span class="option-label">Manual</span></div>
-          <div class="option" data-value="ea"><span class="option-label">EA</span></div>
-          <div class="option" data-value="scalping"><span class="option-label">Scalping</span></div>
-          <div class="option" data-value="swing"><span class="option-label">Swing</span></div>
-          <div class="option" data-value="news"><span class="option-label">News</span></div>
+          <div class="option" data-value="manual" data-icon="cursor"><span class="option-icon"></span><span class="option-label">Manual</span></div>
+          <div class="option" data-value="ea" data-icon="chip"><span class="option-icon"></span><span class="option-label">EA</span></div>
+          <div class="option" data-value="scalping" data-icon="bolt"><span class="option-icon"></span><span class="option-label">Scalping</span></div>
+          <div class="option" data-value="swing" data-icon="wave"><span class="option-icon"></span><span class="option-label">Swing</span></div>
+          <div class="option" data-value="news" data-icon="megaphone"><span class="option-icon"></span><span class="option-label">News</span></div>
         </div>
       </div>
 
@@ -83,12 +84,12 @@
         <div class="q-label">Q4 / 5</div>
         <h2>What is most important?</h2>
         <div class="options" data-key="priority">
-          <div class="option" data-value="cost"><span class="option-label">Low Cost</span></div>
-          <div class="option" data-value="drawdown"><span class="option-label">Low Drawdown</span></div>
-          <div class="option" data-value="payout_split"><span class="option-label">High Profit Split</span></div>
-          <div class="option" data-value="fast_payout"><span class="option-label">Fast Payout</span></div>
-          <div class="option" data-value="ea"><span class="option-label">EA</span></div>
-          <div class="option" data-value="flexible_rules"><span class="option-label">Flexible Rules</span></div>
+          <div class="option" data-value="cost" data-icon="dollar"><span class="option-icon"></span><span class="option-label">Low Cost</span></div>
+          <div class="option" data-value="drawdown" data-icon="shield"><span class="option-icon"></span><span class="option-label">Low Drawdown</span></div>
+          <div class="option" data-value="payout_split" data-icon="percent"><span class="option-icon"></span><span class="option-label">High Profit Split</span></div>
+          <div class="option" data-value="fast_payout" data-icon="clock"><span class="option-icon"></span><span class="option-label">Fast Payout</span></div>
+          <div class="option" data-value="ea" data-icon="chip"><span class="option-icon"></span><span class="option-label">EA</span></div>
+          <div class="option" data-value="flexible_rules" data-icon="sliders"><span class="option-icon"></span><span class="option-label">Flexible Rules</span></div>
         </div>
       </div>
 
@@ -97,15 +98,27 @@
         <div class="q-label">Q5 / 5</div>
         <h2>What is your risk preference?</h2>
         <div class="options" data-key="risk">
-          <div class="option" data-value="conservative"><span class="option-label">Conservative</span></div>
-          <div class="option" data-value="balanced"><span class="option-label">Balanced</span></div>
-          <div class="option" data-value="aggressive"><span class="option-label">Aggressive</span></div>
+          <div class="option" data-value="conservative" data-icon="shield"><span class="option-icon"></span><span class="option-label">Conservative</span></div>
+          <div class="option" data-value="balanced" data-icon="scale"><span class="option-icon"></span><span class="option-label">Balanced</span></div>
+          <div class="option" data-value="aggressive" data-icon="flame"><span class="option-icon"></span><span class="option-label">Aggressive</span></div>
         </div>
       </div>
 
       <div class="q-nav">
         <button class="btn btn-outline" id="backBtn" style="visibility:hidden;">← 戻る</button>
-        <span class="mono" style="color:var(--text-faint);font-size:.8rem;align-self:center;" id="hint">選択すると自動で次へ進みます</span>
+        <span class="mono" style="color:var(--text-faint);font-size:.8rem;" id="hint">選択すると自動で次へ進みます</span>
+      </div>
+    </div>
+
+    <!-- ANALYZING TRANSITION -->
+    <div id="analyzingArea" class="analyzing">
+      <div class="analyzing-ring"></div>
+      <div class="analyzing-title">AI Prop Firm Finder is analyzing your profile</div>
+      <div class="analyzing-items" id="analyzingItems">
+        <div class="analyzing-item"><span>Trading Style</span><span class="analyzing-check">✓</span></div>
+        <div class="analyzing-item"><span>Risk Tolerance</span><span class="analyzing-check">✓</span></div>
+        <div class="analyzing-item"><span>EA / Platform Preference</span><span class="analyzing-check">✓</span></div>
+        <div class="analyzing-item"><span>Drawdown Preference</span><span class="analyzing-check">✓</span></div>
       </div>
     </div>
 
@@ -133,19 +146,52 @@
 
 <script src="assets/data/propfirms.js"></script>
 <script src="assets/js/matchscore.js"></script>
+<script src="assets/js/ui.js"></script>
 <script>
 document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+
+// Presentation-only icon set for quiz options. Purely decorative — never
+// read by matchscore.js and never affects scoring.
+const ICONS = {
+  exchange: '<path d="M7 7h11M7 7l4-4M7 7l4 4M17 17H6M17 17l-4-4M17 17l-4 4"/>',
+  coin: '<circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10a2 2 0 012-1h1a2 2 0 010 4h-1a2 2 0 00-2 2"/>',
+  crypto: '<path d="M12 3l7 4v10l-7 4-7-4V7z"/><path d="M12 8v8M9.5 10.5h3.2a1.8 1.8 0 010 3.6H9.5"/>',
+  indices: '<path d="M5 19V10M12 19V5M19 19v-7"/>',
+  multiple: '<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>',
+  wallet: '<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1"/>',
+  cursor: '<path d="M5 3l6 16 2-6 6-2z"/>',
+  chip: '<rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 3v3M13 3v3M9 18v3M13 18v3M3 9h3M3 13h3M18 9h3M18 13h3"/>',
+  bolt: '<path d="M13 2L5 14h6l-1 8 9-12h-6z"/>',
+  wave: '<path d="M2 12c2.5-4 4.5-4 7 0s4.5 4 7 0 4.5-4 6-1"/>',
+  megaphone: '<path d="M3 10v4h3l7 4V6l-7 4H3z"/><path d="M15 9.5a4 4 0 010 5"/>',
+  dollar: '<path d="M12 2v20"/><path d="M17 6H9.5a2.8 2.8 0 000 5.6H14a2.8 2.8 0 010 5.6H6.5"/>',
+  shield: '<path d="M12 3l7 3v5c0 4.8-3 8-7 10-4-2-7-5.2-7-10V6z"/>',
+  percent: '<circle cx="7.5" cy="7.5" r="2"/><circle cx="16.5" cy="16.5" r="2"/><path d="M17.5 6.5l-11 11"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+  sliders: '<path d="M4 6h9M4 12h15M4 18h6"/><circle cx="16" cy="6" r="2"/><circle cx="9" cy="18" r="2"/>',
+  scale: '<path d="M12 3v18M5 7l-3 6a3 3 0 006 0zM19 7l-3 6a3 3 0 006 0zM5 7h14"/>',
+  flame: '<path d="M12 2c1 3.5 5 5.5 5 10a5 5 0 01-10 0c0-1.4.6-2.3 1-3 .3 1 1 1.6 1.8 1.2C8.2 8.6 9.5 6 12 2z"/>'
+};
+document.querySelectorAll('.option[data-icon]').forEach(opt => {
+  const svg = ICONS[opt.dataset.icon];
+  if (svg) opt.querySelector('.option-icon').innerHTML =
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${svg}</svg>`;
+});
 
 const steps = Array.from(document.querySelectorAll('.q-step'));
 const progressEl = document.getElementById('progress');
 progressEl.innerHTML = steps.map(() => '<i></i>').join('');
 const progressBars = Array.from(progressEl.children);
+const stepLabel = document.getElementById('stepLabel');
+const stepPct = document.getElementById('stepPct');
 
 let current = 0;
 const answers = {};
 
 function renderProgress() {
   progressBars.forEach((b, i) => b.classList.toggle('done', i <= current));
+  stepLabel.textContent = `QUESTION ${String(current + 1).padStart(2, '0')} / 0${steps.length}`;
+  stepPct.textContent = `${Math.round(((current + 1) / steps.length) * 100)}%`;
 }
 
 function showStep(i) {
@@ -167,7 +213,7 @@ steps.forEach((step, i) => {
           current = i + 1;
           showStep(current);
         } else {
-          showResults();
+          runAnalyzingTransition();
         }
       }, 220);
     });
@@ -186,8 +232,24 @@ document.getElementById('retakeBtn').addEventListener('click', () => {
   showStep(0);
 });
 
-function showResults() {
+// Short, honest interstitial: the categories shown ARE the real inputs
+// computeWeights() (assets/js/matchscore.js) uses — this is not fabricated
+// content, it is a lightweight visualization of the real, already-computed
+// answers while the (near-instant) scoring below actually runs.
+function runAnalyzingTransition() {
   document.getElementById('quizArea').style.display = 'none';
+  const area = document.getElementById('analyzingArea');
+  area.classList.add('active');
+  const items = Array.from(document.querySelectorAll('#analyzingItems .analyzing-item'));
+  items.forEach(el => el.classList.remove('show'));
+  items.forEach((el, idx) => setTimeout(() => el.classList.add('show'), 180 * (idx + 1)));
+  setTimeout(() => {
+    area.classList.remove('active');
+    showResults();
+  }, 180 * items.length + 500);
+}
+
+function showResults() {
   const resultArea = document.getElementById('resultArea');
   resultArea.style.display = 'block';
 
@@ -212,15 +274,18 @@ function showResults() {
   list.innerHTML = ranked.map((r, idx) => {
     const topReasons = r.breakdown.slice(0, 3).map(b => `${b.label}(${b.subscore})`).join(' / ');
     return `
-      <div class="card result-card" style="margin-bottom:18px;">
-        <div class="rank-badge">#${idx + 1} MATCH</div>
-        <div style="display:flex;align-items:center;gap:20px;margin-top:8px;">
-          <div class="gauge" style="--pct:${r.score}"><span class="gauge-num">${r.score}</span></div>
+      <div class="prop-card result-card${idx === 0 ? ' prop-card--top' : ''}" style="margin-bottom:18px;">
+        <div class="prop-card-head">
+          <div class="prop-logo">${r.firm.fact.basic.brand_name.charAt(0)}</div>
           <div>
-            <h3 style="margin-bottom:4px;">${r.firm.fact.basic.brand_name}</h3>
-            <div style="font-size:.82rem;color:var(--text-faint);">Why it matches you: ${topReasons}</div>
+            <div class="rank-badge">#${idx + 1} MATCH</div>
+            <div class="prop-card-name">${r.firm.fact.basic.brand_name}</div>
+          </div>
+          <div class="prop-card-score">
+            <div class="gauge" data-pct="${r.score}"><span class="gauge-num">${r.score}</span></div>
           </div>
         </div>
+        <div class="prop-card-note"><strong>Why it matches you:</strong> ${topReasons}</div>
         <div class="gauge-bars">
           ${r.breakdown.map(b => `
             <div class="gauge-bar-row">
@@ -229,7 +294,7 @@ function showResults() {
               <span>${b.subscore}</span>
             </div>`).join('')}
         </div>
-        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+        <div class="prop-card-cta">
           <a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>
           <a href="${r.firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">View ${r.firm.fact.basic.brand_name}（公式）→</a>
         </div>
@@ -238,6 +303,8 @@ function showResults() {
         </div>
       </div>`;
   }).join('');
+
+  AITF_UI.animateGauges(list);
 }
 
 showStep(0);

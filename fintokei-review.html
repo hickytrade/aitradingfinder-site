@@ -36,7 +36,7 @@
     <ul class="nav-links">
       <li><a href="finder.html">AI Prop Firm Finder</a></li>
       <li><a href="comparison.html">比較</a></li>
-      <li><a href="fintokei-review.html" class="active">Fintokeiレビュー</a></li>
+      <li><a href="fintokei-review.html">Fintokeiレビュー</a></li>
       <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
       <li><a href="blog.html">ブログ</a></li>
     </ul>
@@ -53,9 +53,31 @@
     <div class="eyebrow">PROP FIRM REVIEW</div>
     <h1>Fintokei（フィントケイ）レビュー</h1>
     <p style="max-width:64ch;">本ページはFintokeiの公式サイト・公式FAQを一次情報として作成した独立系レビューです。<strong>AITradingFinderはFintokeiの公式サイトではありません。</strong>価格・ルールは変更される可能性があるため、最終確認は必ず公式サイトで行ってください。</p>
-    <div class="card" style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:24px 0 40px;">
+    <div class="card" style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:24px 0 0;">
       <div style="font-family:var(--font-mono);font-size:.82rem;color:var(--text-faint);" id="verifiedLine"></div>
       <a id="officialLink" href="#" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイトで見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AI Provider Score summary — moved to the top so "how AITradingFinder rates this
+     provider" is the first substantive thing a visitor sees, ahead of the raw data. -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="prop-card prop-card--top">
+      <div class="prop-card-head">
+        <div class="prop-logo" id="reviewLogo"></div>
+        <div>
+          <div class="ai-match-label" style="font-family:var(--font-mono);font-size:var(--text-2xs);letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);">AI Provider Score</div>
+          <div class="prop-card-name" id="reviewFirmName"></div>
+        </div>
+        <div class="prop-card-score">
+          <div class="gauge" id="providerGauge" data-pct="0"><span class="gauge-num" id="providerGaugeNum"></span></div>
+        </div>
+      </div>
+      <p>以下はFintokei公式の評価ではなく、fact（公式一次情報）を基にしたAITradingFinder独自の「サービス自体の品質」評価です。<strong>ユーザー個別の適合度（User Match Score）や、アフィリエイト収益性（Business Score）とは完全に分離されています。</strong>未確認項目は中立値（50点）として扱っています。</p>
+      <div id="evalBars" style="margin-top:20px;"></div>
+      <p style="font-size:var(--text-xs);color:var(--text-faint);margin-top:16px;margin-bottom:0;" id="evalMethod"></p>
     </div>
   </div>
 </section>
@@ -76,16 +98,18 @@
 
 <section>
   <div class="wrap">
-    <h2>チャレンジプラン（ProTrader）料金表</h2>
-    <p>公式サイトに掲載されている7段階のアカウントサイズ。プラン価格・ルールは共通です。</p>
+    <div class="section-head">
+      <h2>チャレンジプラン（ProTrader）料金表</h2>
+      <p>公式サイトに掲載されている7段階のアカウントサイズ。プラン価格・ルールは共通です。</p>
+    </div>
     <div class="card" style="overflow-x:auto;">
-      <table id="plansTable"></table>
+      <table id="plansTable" class="stack"></table>
     </div>
     <p style="font-size:.78rem;color:var(--text-faint);margin-top:10px;" id="plansSource"></p>
   </div>
 </section>
 
-<section>
+<section style="padding-top:0;">
   <div class="wrap grid-2">
     <div class="card">
       <h3>取引条件</h3>
@@ -135,17 +159,6 @@
 </section>
 
 <section>
-  <div class="wrap">
-    <h2>AITradingFinder Provider Score（サービス品質評価）</h2>
-    <p>以下はFintokei公式の評価ではなく、fact（公式一次情報）を基にしたAITradingFinder独自の「サービス自体の品質」評価です。<strong>ユーザー個別の適合度（User Match Score）や、アフィリエイト収益性（Business Score）とは完全に分離されています。</strong>未確認項目は中立値（50点）として扱っています。</p>
-    <div class="card">
-      <div id="evalBars"></div>
-      <p style="font-size:.76rem;color:var(--text-faint);margin-top:16px;" id="evalMethod"></p>
-    </div>
-  </div>
-</section>
-
-<section>
   <div class="wrap card" style="text-align:center;">
     <h2>あなたに合うか、AIで診断する</h2>
     <p>Fintokeiがあなたのトレードスタイルに本当に合っているか、5つの質問で確認できます。</p>
@@ -167,6 +180,7 @@
 </footer>
 
 <script src="assets/data/propfirms.js"></script>
+<script src="assets/js/ui.js"></script>
 <script>
 document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
 
@@ -176,6 +190,8 @@ const b = fact.basic;
 
 document.getElementById('verifiedLine').textContent = `最終確認日: ${firm.provider_score.last_verified_date} ／ 出典: ${b.official_url}`;
 document.getElementById('officialLink').href = firm.affiliate_link.display_url;
+document.getElementById('reviewLogo').textContent = b.brand_name.charAt(0);
+document.getElementById('reviewFirmName').textContent = b.brand_name;
 
 const naOrValue = (v) => (v === null || v === undefined) ? '<span class="tag unknown">未確認</span>' : v;
 
@@ -202,20 +218,20 @@ document.getElementById('plansTable').innerHTML = groups.map(g => {
       : `<span class="tag unknown">${p.profit_split_note || '成果連動'}</span>`;
     return `
     <tr>
-      <td>${p.plan_name.replace(g + '— ', '')}</td>
-      <td class="num">¥${p.account_size_jpy.toLocaleString()}</td>
-      <td class="num">¥${p.challenge_price_jpy.toLocaleString()}</td>
-      <td class="num">${p.evaluation_steps}ステップ</td>
-      <td class="num">${targets}</td>
-      <td class="num">${p.max_daily_drawdown_pct}%</td>
-      <td class="num">${p.max_total_drawdown_pct}%</td>
-      <td class="num">${p.max_leverage}倍</td>
-      <td class="num">${split}</td>
+      <td data-label="プラン">${p.plan_name.replace(g + '— ', '')}</td>
+      <td class="num" data-label="資金">¥${p.account_size_jpy.toLocaleString()}</td>
+      <td class="num" data-label="価格(税込)">¥${p.challenge_price_jpy.toLocaleString()}</td>
+      <td class="num" data-label="評価">${p.evaluation_steps}ステップ</td>
+      <td class="num" data-label="利益目標">${targets}</td>
+      <td class="num" data-label="日次DD">${p.max_daily_drawdown_pct}%</td>
+      <td class="num" data-label="総合DD">${p.max_total_drawdown_pct}%</td>
+      <td class="num" data-label="レバレッジ">${p.max_leverage}倍</td>
+      <td class="num" data-label="Profit Split">${split}</td>
     </tr>`;
   }).join('');
   return `
-    <tr><th colspan="9" style="background:var(--surface-2);border-bottom:none;padding-top:20px;">${g}</th></tr>
-    <tr><th>プラン</th><th>資金</th><th>価格(税込)</th><th>評価</th><th>利益目標</th><th>日次DD</th><th>総合DD</th><th>レバレッジ</th><th>Profit Split</th></tr>
+    <tr class="group-heading"><th colspan="9" style="background:var(--surface-2);border-bottom:none;padding-top:20px;">${g}</th></tr>
+    <tr class="col-heading"><th>プラン</th><th>資金</th><th>価格(税込)</th><th>評価</th><th>利益目標</th><th>日次DD</th><th>総合DD</th><th>レバレッジ</th><th>Profit Split</th></tr>
     ${rows}`;
 }).join('');
 document.getElementById('plansSource').textContent = `出典: ${Object.values(fact.plans_source.source_urls).join(' / ')} （取得日: ${fact.plans_source.fetched_at}）`;
@@ -294,6 +310,8 @@ document.getElementById('risksList').innerHTML = '<ul style="font-size:.85rem;co
 
 // Provider Score（ユーザー非依存・Affiliateを含まない）
 const ps = firm.provider_score;
+document.getElementById('providerGauge').setAttribute('data-pct', ps.overall_provider_score);
+document.getElementById('providerGaugeNum').textContent = ps.overall_provider_score;
 const evalItems = [
   ['コスト', ps.cost_score], ['ドローダウン', ps.drawdown_score], ['取引の自由度', ps.trading_flexibility_score],
   ['EA対応', ps.ea_score], ['報酬・出金', ps.payout_score], ['プラットフォーム', ps.platform_score],
@@ -311,6 +329,8 @@ document.getElementById('evalBars').innerHTML = evalItems.map(([label, score]) =
     <span style="color:var(--gold);">${ps.overall_provider_score}</span>
   </div>`;
 document.getElementById('evalMethod').textContent = ps.methodology_note;
+
+AITF_UI.animateGauges();
 </script>
 <script src="assets/js/nav.js"></script>
 </body>

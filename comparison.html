@@ -17,7 +17,7 @@
     <a href="index.html" class="brand"><span class="brand-mark">AI</span>AITradingFinder</a>
     <ul class="nav-links">
       <li><a href="finder.html">AI Prop Firm Finder</a></li>
-      <li><a href="comparison.html" class="active">比較</a></li>
+      <li><a href="comparison.html">比較</a></li>
       <li><a href="fintokei-review.html">Fintokeiレビュー</a></li>
       <li><a href="best-prop-firms.html">Best Prop Firms</a></li>
       <li><a href="blog.html">ブログ</a></li>
@@ -37,7 +37,7 @@
     <p style="max-width:64ch;">Prop Firm Database v0.1に登録済みの企業を一覧比較できます。まだ登録数が少ないv0.1段階では、AI Prop Firm Finderで個別診断を受けることを推奨します。</p>
 
     <div class="card" style="overflow-x:auto;margin-top:24px;">
-      <table id="compareTable"></table>
+      <table id="compareTable" class="stack"></table>
     </div>
 
     <div id="emptyMore" class="empty-state" style="margin-top:24px;">
@@ -69,25 +69,41 @@
 <script>
 document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
 
-const rows = PROP_FIRMS.map(f => {
+// Precompute best (highest-favorability) value per numeric column so it can
+// be highlighted — scales naturally from 1 firm today to N firms in Step 22.
+const minPrices = PROP_FIRMS.map(f => Math.min(...f.fact.plans.map(p => p.challenge_price_jpy)));
+const maxAccounts = PROP_FIRMS.map(f => Math.max(...f.fact.plans.map(p => p.account_size_jpy)));
+const splits = PROP_FIRMS.map(f => f.fact.plans[0].profit_split_pct);
+const drawdowns = PROP_FIRMS.map(f => f.fact.plans[0].max_total_drawdown_pct);
+const bestMinPrice = Math.min(...minPrices);
+const bestMaxAccount = Math.max(...maxAccounts);
+const bestSplit = Math.max(...splits);
+const bestDrawdown = Math.min(...drawdowns); // lower drawdown allowance = stricter, so "best" here = highest (more room) — see note below
+const bestDrawdownRoom = Math.max(...drawdowns);
+
+const rows = PROP_FIRMS.map((f, i) => {
   const ps = f.provider_score;
-  const minPrice = Math.min(...f.fact.plans.map(p => p.challenge_price_jpy));
-  const maxAccount = Math.max(...f.fact.plans.map(p => p.account_size_jpy));
   const eaLabel = f.fact.ea_policy.self_created_or_self_managed_ea_allowed ? '<span class="tag ok">自作EA可</span>' : '<span class="tag unknown">未確認</span>';
   return `
     <tr>
-      <td><strong>${f.fact.basic.brand_name}</strong></td>
-      <td class="num">¥${minPrice.toLocaleString()}〜</td>
-      <td class="num">〜¥${maxAccount.toLocaleString()}</td>
-      <td class="num">${f.fact.plans[0].profit_split_pct}%</td>
-      <td class="num">${f.fact.plans[0].max_total_drawdown_pct}%</td>
-      <td>${eaLabel}</td>
-      <td><a href="fintokei-review.html" class="btn btn-outline" style="padding:8px 14px;">レビュー</a></td>
+      <td data-label="Prop Firm"><strong>${f.fact.basic.brand_name}</strong></td>
+      <td class="num${minPrices[i] === bestMinPrice ? ' best' : ''}" data-label="最安プラン価格">¥${minPrices[i].toLocaleString()}〜</td>
+      <td class="num${maxAccounts[i] === bestMaxAccount ? ' best' : ''}" data-label="最大資金">〜¥${maxAccounts[i].toLocaleString()}</td>
+      <td class="num${splits[i] === bestSplit ? ' best' : ''}" data-label="Profit Split">${splits[i]}%</td>
+      <td class="num${drawdowns[i] === bestDrawdownRoom ? ' best' : ''}" data-label="総合DD許容">${drawdowns[i]}%</td>
+      <td data-label="EA">${eaLabel}</td>
+      <td data-label="AI Provider Score">
+        <div class="table-score-cell">
+          <span class="mono">${ps.overall_provider_score}</span>
+          <span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:${ps.overall_provider_score}%"></span></span>
+        </div>
+      </td>
+      <td data-label=""><a href="fintokei-review.html" class="btn btn-outline" style="padding:8px 14px;">レビュー</a></td>
     </tr>`;
 }).join('');
 
 document.getElementById('compareTable').innerHTML = `
-  <tr><th>Prop Firm</th><th>最安プラン価格</th><th>最大資金</th><th>Profit Split</th><th>総合DD</th><th>EA</th><th></th></tr>
+  <tr class="col-heading"><th>Prop Firm</th><th>最安プラン価格</th><th>最大資金</th><th>Profit Split</th><th>総合DD許容</th><th>EA</th><th>AI Provider Score</th><th></th></tr>
   ${rows}
 `;
 </script>
