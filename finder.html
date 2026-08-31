@@ -54,8 +54,26 @@
       <h1 style="font-size:1.8rem;margin-bottom:6px;">5つの質問で、あなたに合うProp Firmを診断</h1>
       <p style="margin-bottom:30px;">回答内容はこの画面内でのみ処理され、外部には送信されません（v0.1はローカル計算のみ）。</p>
 
-      <div class="quiz-progress-row"><span id="stepLabel">QUESTION 01 / 05</span><span id="stepPct">20%</span></div>
-      <div class="quiz-progress" id="progress"></div>
+      <div class="quiz-step-header">
+        <div class="step-track" id="stepTrack">
+          <div class="step-item" data-step-index="0"><div class="step-dot">01</div><span class="step-label">Trading</span></div>
+          <div class="step-connector"></div>
+          <div class="step-item" data-step-index="1"><div class="step-dot">02</div><span class="step-label">Account</span></div>
+          <div class="step-connector"></div>
+          <div class="step-item" data-step-index="2"><div class="step-dot">03</div><span class="step-label">Style</span></div>
+          <div class="step-connector"></div>
+          <div class="step-item" data-step-index="3"><div class="step-dot">04</div><span class="step-label">Priority</span></div>
+          <div class="step-connector"></div>
+          <div class="step-item" data-step-index="4"><div class="step-dot">05</div><span class="step-label">Risk</span></div>
+        </div>
+        <div class="quiz-progress-row" style="margin-top:10px;"><span id="stepLabel">STEP 01 OF 05</span></div>
+        <!-- The step-track above is now the primary visual progress
+             indicator. This thin bar is kept in the DOM (renderProgress()
+             still updates it) but visually hidden to avoid showing two
+             redundant progress indicators — a presentation choice only,
+             not a removal of the element renderProgress() depends on. -->
+        <div class="quiz-progress" id="progress" style="display:none;"></div>
+      </div>
 
       <!-- Q1 -->
       <div class="q-step active" data-step="0">
@@ -140,9 +158,10 @@
 
     <!-- RESULTS -->
     <div id="resultArea" style="display:none;">
-      <div class="eyebrow">YOUR RESULT</div>
-      <h2>Your Best Matches</h2>
+      <div class="eyebrow">AI MATCHING RESULT</div>
+      <h2 style="margin-bottom:4px;">Your Best Matches</h2>
       <p id="noDataNote" style="display:none;" class="empty-state"></p>
+      <div id="resultSummary" class="result-summary"></div>
       <div id="resultsList"></div>
       <button class="btn btn-outline" id="retakeBtn" style="margin-top:20px;">もう一度診断する</button>
     </div>
@@ -200,15 +219,22 @@ const progressEl = document.getElementById('progress');
 progressEl.innerHTML = steps.map(() => '<i></i>').join('');
 const progressBars = Array.from(progressEl.children);
 const stepLabel = document.getElementById('stepLabel');
-const stepPct = document.getElementById('stepPct');
+const stepTrackItems = Array.from(document.querySelectorAll('#stepTrack .step-item'));
 
 let current = 0;
 const answers = {};
 
+// UI-state-only: mirrors `current` onto the visual step-track and the
+// existing progress bar / label. Does not read or write `answers`, and
+// does not call any scoring function — purely a display sync, the same
+// role this function already had before Phase 4.
 function renderProgress() {
   progressBars.forEach((b, i) => b.classList.toggle('done', i <= current));
-  stepLabel.textContent = `QUESTION ${String(current + 1).padStart(2, '0')} / 0${steps.length}`;
-  stepPct.textContent = `${Math.round(((current + 1) / steps.length) * 100)}%`;
+  stepTrackItems.forEach((el, i) => {
+    el.classList.toggle('done', i < current);
+    el.classList.toggle('active', i === current);
+  });
+  stepLabel.textContent = `STEP ${String(current + 1).padStart(2, '0')} OF ${String(steps.length).padStart(2, '0')}`;
 }
 
 function showStep(i) {
@@ -285,6 +311,7 @@ function showResults() {
 
   const list = document.getElementById('resultsList');
   const noDataNote = document.getElementById('noDataNote');
+  const summaryEl = document.getElementById('resultSummary');
 
   AITF_ANALYTICS.track('finder_completed', {
     source_page: 'finder',
@@ -296,8 +323,17 @@ function showResults() {
     noDataNote.style.display = 'block';
     noDataNote.textContent = 'v0.1時点ではデータベースに登録済みのProp Firmがありません。';
     list.innerHTML = '';
+    summaryEl.innerHTML = '';
     return;
   }
+
+  // Purely descriptive of the real, already-computed ranked[] result —
+  // no new computation.
+  summaryEl.innerHTML = `
+    <div class="metric"><div class="metric-value lg accent-gold">${ranked[0].score}</div><div class="metric-label">Best Match Score</div></div>
+    <div class="metric"><div class="metric-value sm">${ranked.length}</div><div class="metric-label">Providers Compared</div></div>
+    <div class="metric"><div class="metric-value sm">${ranked[0].firm.fact.basic.brand_name}</div><div class="metric-label">Top Match</div></div>
+  `;
 
   // Only Fintokei has a review page today; only an APPROVED affiliate_link
   // may render as a monetized (rel=sponsored) CTA — everything else falls
@@ -316,8 +352,13 @@ function showResults() {
   }
 
   list.innerHTML = ranked.map((r, idx) => {
-    const topReasons = r.breakdown.slice(0, 3).map(b => `${b.label}(${b.subscore})`).join(' / ');
+    // "Strong match on" is built directly from the real breakdown[] this
+    // firm/profile pair already produced — no new text is generated, only
+    // the top-weighted categories (already sorted by scoreFirm()) are
+    // selected and labeled.
+    const topCategories = r.breakdown.slice(0, 3).map(b => b.label);
     const approved = r.firm.affiliate_link && r.firm.affiliate_link.status === 'APPROVED';
+    const lastVerified = r.firm.provider_score && r.firm.provider_score.last_verified_date;
     return `
       <div class="prop-card result-card${idx === 0 ? ' prop-card--top' : ''}" style="margin-bottom:18px;">
         <div class="prop-card-head">
@@ -330,7 +371,17 @@ function showResults() {
             <div class="gauge" data-pct="${r.score}"><span class="gauge-num">${r.score}</span></div>
           </div>
         </div>
-        <div class="prop-card-note"><strong>Why it matches you:</strong> ${topReasons}</div>
+
+        <div class="result-card-verify">
+          <span class="verify-badge">VERIFIED</span>
+          ${lastVerified ? `<span class="mono" style="font-size:var(--text-2xs);color:var(--text-faint);">LAST VERIFIED: ${lastVerified}</span>` : ''}
+        </div>
+
+        <div class="insight-block">
+          <div class="insight-title">Why this match?</div>
+          <div style="font-size:var(--text-sm);color:var(--text-muted);">Strong match on: ${topCategories.join(' / ')}</div>
+        </div>
+
         <div class="gauge-bars">
           ${r.breakdown.map(b => `
             <div class="gauge-bar-row">
@@ -339,6 +390,7 @@ function showResults() {
               <span>${b.subscore}</span>
             </div>`).join('')}
         </div>
+
         <div class="prop-card-cta">
           ${reviewLink(r.firm)}
           ${officialCta(r.firm)}

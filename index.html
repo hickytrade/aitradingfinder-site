@@ -62,14 +62,14 @@
 <header class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <div class="eyebrow">AI PROP FIRM FINDER · v0.1</div>
-      <h1>Find the Trading&nbsp;Service<br>That Fits&nbsp;You.</h1>
-      <p class="lead">資金・トレードスタイル・リスク許容度をもとに、AIがあなたに最も適合するProp&nbsp;Firm／ブローカー／トレードツールを診断し、比較・推薦します。「一番人気」ではなく「あなたに合う」を見つけるためのツールです。</p>
+      <div class="eyebrow">AI-POWERED PROP FIRM INTELLIGENCE</div>
+      <h1>Find the Prop Firm<br>That Fits <span style="color:var(--gold)">You</span> Best.</h1>
+      <p class="lead">AIが公式一次情報で検証済みのデータをもとに、あなたのトレードスタイル・資金・リスク許容度に最も合うProp Firmを診断します。「人気」ではなく「あなたに合う」を見つけるためのツールです。</p>
       <div class="hero-actions">
-        <a href="finder.html" class="btn btn-primary">Start Free AI Matching →</a>
+        <a href="finder.html" class="btn btn-primary">Start AI Match →</a>
         <a href="fintokei-review.html" class="btn btn-outline" data-track="review_click" data-firm-id="fintokei">Fintokeiのレビューを見る</a>
       </div>
-      <div class="hero-stats">
+      <div class="hero-stats" id="heroStats">
         <div><strong>4</strong><span>掲載中のProp Firm</span></div>
         <div><strong>5</strong><span>問のAI診断</span></div>
         <div><strong class="mono">100pt</strong><span>Match Scoreロジック</span></div>
@@ -116,43 +116,76 @@
 <section>
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">FEATURED</div>
-      <h2>最初の掲載候補：Fintokei</h2>
+      <div class="eyebrow">TOP MATCHES</div>
+      <h2>Provider Intelligence</h2>
+      <p>AI Provider Scoreは、公式一次情報（FACT）を基にしたAITradingFinder独自の品質評価です。あなた個人に最適化された診断は<a href="finder.html" style="color:var(--teal)">AI Prop Firm Finder</a>でご確認ください。</p>
     </div>
-    <div class="grid-2">
-      <div class="prop-card">
-        <div class="prop-card-head">
-          <div class="prop-logo">F</div>
-          <div>
-            <div class="prop-card-name">Fintokei（チャレンジプラン）</div>
-            <div class="prop-card-sub">初期最大デモ運用資金5,000万円 / 2ステップ評価 / Profit Split 80%</div>
-          </div>
-        </div>
-        <p>スキャルピング・EA・ニュース取引も公式に許可されているプランです。</p>
-        <div class="prop-card-tags">
-          <span class="tag ok">EA可</span>
-          <span class="tag ok">スキャルピング可</span>
-          <span class="tag ok">ニュース取引可</span>
-          <span class="tag ok">MT4/MT5/cTrader（TradingViewはcTrader経由）</span>
-        </div>
-        <div class="prop-card-cta">
-          <a href="fintokei-review.html" class="btn btn-outline" data-track="review_click" data-firm-id="fintokei">詳細レビューを読む</a>
+    <div id="topMatches" class="grid-3"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">TRUST &amp; VERIFICATION</div>
+      <h2>なぜAITradingFinderのデータを信頼できるのか</h2>
+      <p>「AIだから信頼してください」ではなく、検証プロセスそのものを公開します。</p>
+    </div>
+    <div class="grid-2" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+      <div class="trust-badge">
+        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.8-3 8-7 10-4-2-7-5.2-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div>
+          <div class="trust-badge-title">FACT Verified</div>
+          <div class="trust-badge-sub">公式一次情報のみ使用</div>
         </div>
       </div>
-      <div class="card">
-        <h3>なぜFintokeiから始めるのか</h3>
-        <p>公式アフィリエイトプログラム（最大15%報酬・再購入も対象）が明確に整備されており、公式情報（価格・ルール）の取得と検証がしやすいため、v0.1のデータベース第一候補としています。</p>
-        <p style="font-size:var(--text-sm);">情報取得日：2026-08-28 ／ 出典：<span class="mono">fintokei.com（公式）</span></p>
+      <div class="trust-badge">
+        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <div>
+          <div class="trust-badge-title">Independent</div>
+          <div class="trust-badge-sub">Affiliate収益はMatch Scoreに不使用</div>
+        </div>
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+        <div>
+          <div class="trust-badge-title">Transparent</div>
+          <div class="trust-badge-sub">取得日・出典を全項目に明記</div>
+        </div>
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div>
+          <div class="trust-badge-title">Updated</div>
+          <div class="trust-badge-sub" id="lastVerifiedText">最終確認日を読み込み中…</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="wrap card" style="text-align:center;">
-    <h2 style="margin-bottom:10px;">今すぐAI診断を試す</h2>
-    <p style="max-width:50ch;margin:0 auto 24px;">所要時間は約1分。トレードスタイルに最も合うProp Firmと、その理由をスコアの内訳付きで確認できます。</p>
-    <a href="finder.html" class="btn btn-primary">Start Free AI Matching →</a>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">RESEARCH</div>
+      <h2>Research &amp; Insights</h2>
+      <p>データドリブンな解説記事。公式一次情報で確認できた内容のみを掲載しています。</p>
+    </div>
+    <div id="researchList"></div>
+    <div id="researchEmpty" class="empty-state" style="display:none;">
+      <p style="margin:0;">現在、公開済みの記事はありません。</p>
+    </div>
+    <p style="margin-top:var(--space-4);"><a href="blog.html" style="color:var(--teal)">View All Articles →</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-banner">
+      <h2 style="margin-bottom:10px;">今すぐAI診断を試す</h2>
+      <p style="max-width:50ch;margin:0 auto 24px;">所要時間は約1分。トレードスタイルに最も合うProp Firmと、その理由をスコアの内訳付きで確認できます。</p>
+      <a href="finder.html" class="btn btn-primary">Start AI Match →</a>
+    </div>
   </div>
 </section>
 
@@ -167,13 +200,95 @@
 </footer>
 
 <script src="assets/data/propfirms.js"></script>
+<script src="assets/data/articles.js"></script>
+<script src="assets/js/matchscore.js"></script>
+<script src="assets/js/ui.js"></script>
 <script src="assets/js/analytics.js"></script>
 <script>
-  document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
-</script>
-<script src="assets/js/ui.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () { AITF_UI.animateGauges(); });
+document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
+
+// ---------- Top Matches: reuses the exact standard-profile pattern
+// already used by best-prop-firms.html (matchFirms with a neutral
+// answers object). matchscore.js itself is not modified — this is
+// simply a second call site for an existing function. ----------
+const standardAnswers = { instrument: 'multiple', accountSize: 10000000, style: 'manual', priority: null, risk: 'balanced' };
+const rankedHome = matchFirms(standardAnswers, PROP_FIRMS);
+
+function homeOfficialCta(firm) {
+  const approved = firm.affiliate_link && firm.affiliate_link.status === 'APPROVED';
+  if (approved) {
+    return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" data-firm-id="${firm.id}" class="btn btn-primary">公式サイト →</a>`;
+  }
+  const url = firm.fact.basic.official_url;
+  return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" data-firm-id="${firm.id}" class="btn btn-primary">公式サイトを見る →</a>` : '';
+}
+function homeIntelLink(firm) {
+  return firm.id === 'fintokei'
+    ? `<a href="fintokei-review.html" class="btn btn-outline" data-track="review_click" data-firm-id="${firm.id}">View Intelligence</a>`
+    : `<a href="comparison.html" class="btn btn-outline">View Intelligence</a>`;
+}
+function fmtOrDash(v, suffix) {
+  return (v === null || v === undefined) ? '<span class="tag unknown">未確認</span>' : `${v}${suffix || ''}`;
+}
+
+document.getElementById('topMatches').innerHTML = rankedHome.map(r => {
+  const f = r.firm;
+  const steps = f.fact.plans && f.fact.plans[0] ? f.fact.plans[0].evaluation_steps : null;
+  const split = f.fact.plans && f.fact.plans[0] ? (f.fact.plans[0].profit_split_pct ?? f.fact.plans[0].profit_split_max_pct) : null;
+  return `
+    <div class="intel-card">
+      <div class="intel-card-header">
+        <div class="intel-card-title">
+          <div class="prop-logo">${f.fact.basic.brand_name.charAt(0)}</div>
+          <div>
+            <div class="prop-card-name">${f.fact.basic.brand_name}</div>
+            <span class="status-pill verified"><span class="status-dot verified"></span>Verified</span>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-value accent-gold">${f.provider_score.overall_provider_score}</div>
+          <div class="metric-label">AI Score</div>
+        </div>
+      </div>
+      <div class="intel-card-metrics">
+        <div class="metric"><div class="metric-value sm">${fmtOrDash(steps)}</div><div class="metric-label">Steps</div></div>
+        <div class="metric"><div class="metric-value sm">${fmtOrDash(split, '%')}</div><div class="metric-label">Split</div></div>
+        <div class="metric"><div class="metric-value sm">${r.score}</div><div class="metric-label">Match</div></div>
+      </div>
+      <div class="intel-card-cta">
+        ${homeIntelLink(f)}
+        ${homeOfficialCta(f)}
+      </div>
+    </div>`;
+}).join('');
+
+// ---------- Trust: "Updated" uses the real, most recent
+// provider_score.last_verified_date across all firms — never a fabricated date. ----------
+const latestVerified = PROP_FIRMS.map(f => f.provider_score.last_verified_date).filter(Boolean).sort().pop();
+document.getElementById('lastVerifiedText').textContent = latestVerified ? `最終確認日: ${latestVerified}` : '未確認';
+
+// ---------- Research: only ever renders articles whose status is
+// "published" in assets/data/articles.js — same gate blog.html uses.
+// This script never sets that status. ----------
+const publishedHome = (typeof BLOG_ARTICLES !== 'undefined' ? BLOG_ARTICLES : []).filter(a => a.status === 'published');
+const researchListEl = document.getElementById('researchList');
+const researchEmptyEl = document.getElementById('researchEmpty');
+if (publishedHome.length === 0) {
+  researchEmptyEl.style.display = 'block';
+  researchListEl.innerHTML = '';
+} else {
+  researchEmptyEl.style.display = 'none';
+  researchListEl.innerHTML = publishedHome.slice(0, 3).map(a => `
+    <div class="article-card">
+      <div class="research-card-visual" style="margin:calc(var(--space-6) * -1) calc(var(--space-6) * -1) var(--space-4);"></div>
+      <div class="article-meta">RESEARCH</div>
+      <h3 style="margin-bottom:8px;"><a href="${a.url}" style="color:inherit;text-decoration:none;">${a.title}</a></h3>
+      <p style="margin-bottom:12px;">${a.excerpt}</p>
+      <a href="${a.url}" class="btn btn-outline">記事を読む →</a>
+    </div>`).join('');
+}
+
+AITF_UI.animateGauges();
 </script>
 <script src="assets/js/nav.js"></script>
 </body>

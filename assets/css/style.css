@@ -396,3 +396,262 @@ footer { border-top: 1px solid var(--border-soft); padding: var(--space-7) 0; ma
   .gauge { width: 108px; height: 108px; }
   .gauge .gauge-num { font-size: 1.4rem; }
 }
+
+/* ==========================================================
+   Phase 2 — Design System Extension
+   Premium AI x FinTech x Quant SaaS direction. ADDITIVE ONLY:
+   nothing above this line is modified, renamed, or removed.
+   These primitives are not yet referenced by any page's HTML —
+   Phase 3+ applies them. Adding this section changes no existing
+   selector's behavior, so it cannot affect FACT rendering, Match
+   Score, Business Score, Affiliate CTAs, Analytics, or SEO.
+   ========================================================== */
+:root {
+  /* Controlled electric-blue accent — used sparingly for
+     "intelligence"/data highlights only. Distinct from --gold
+     (brand/primary CTA) and --teal (verified/secondary signal). */
+  --blue: #4F8CFF;
+  --blue-bright: #7AAAFF;
+  --blue-soft: rgba(79, 140, 255, .12);
+
+  /* Status semantics (Verified/Warning/Error/Pending). These alias
+     onto the existing hues rather than introducing new raw colors,
+     so each color still has exactly one source of truth. */
+  --status-verified: var(--teal-bright);
+  --status-verified-soft: var(--teal-soft);
+  --status-warning: var(--gold);
+  --status-warning-soft: var(--gold-soft);
+  --status-error: var(--danger);
+  --status-error-soft: var(--danger-soft);
+  --status-pending: var(--text-faint);
+  --status-pending-soft: rgba(91, 100, 116, .14);
+
+  /* Larger type scale for dashboard-style numerals (Financial Metric). */
+  --text-xl: 1.4rem;
+  --text-2xl: 2.1rem;
+  --text-3xl: 2.75rem;
+}
+
+/* ---------- Financial Metric (e.g. "92 / MATCH", "$100,000 / ACCOUNT SIZE") ---------- */
+.metric { display: flex; flex-direction: column; gap: 3px; }
+.metric-value {
+  font-family: var(--font-mono); font-weight: 700; line-height: 1;
+  font-size: var(--text-2xl); color: var(--text);
+}
+.metric-value.lg { font-size: var(--text-3xl); }
+.metric-value.sm { font-size: var(--text-xl); }
+.metric-value.accent-gold { color: var(--gold); }
+.metric-value.accent-teal { color: var(--teal-bright); }
+.metric-value.accent-blue { color: var(--blue-bright); }
+.metric-label {
+  font-family: var(--font-mono); font-size: var(--text-2xs);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint);
+}
+.metric-row { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-5); }
+
+/* ---------- Status Indicator ---------- */
+.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.verified { background: var(--status-verified); box-shadow: 0 0 0 3px var(--status-verified-soft); }
+.status-dot.warning { background: var(--status-warning); box-shadow: 0 0 0 3px var(--status-warning-soft); }
+.status-dot.error { background: var(--status-error); box-shadow: 0 0 0 3px var(--status-error-soft); }
+.status-dot.pending { background: var(--status-pending); box-shadow: 0 0 0 3px var(--status-pending-soft); }
+
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: var(--text-2xs); text-transform: uppercase; letter-spacing: .08em;
+  padding: 5px 11px; border-radius: var(--radius-pill); border: 1px solid transparent;
+}
+.status-pill.verified { color: var(--status-verified); background: var(--status-verified-soft); border-color: rgba(63,220,198,.3); }
+.status-pill.warning { color: var(--gold-bright); background: var(--status-warning-soft); border-color: rgba(232,163,61,.3); }
+.status-pill.error { color: #F0847A; background: var(--status-error-soft); border-color: rgba(226,87,76,.3); }
+.status-pill.pending { color: var(--status-pending); background: var(--status-pending-soft); border-color: var(--border); }
+
+/* ---------- Verification Badge / Block ---------- */
+.verify-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: var(--text-2xs); text-transform: uppercase; letter-spacing: .08em;
+  padding: 5px 10px; border-radius: var(--radius-pill);
+  border: 1px solid rgba(63,220,198,.32); background: var(--teal-soft); color: var(--teal-bright);
+}
+.verify-block {
+  display: grid; gap: 8px; font-family: var(--font-mono); font-size: var(--text-xs);
+  border-top: 1px solid var(--border-soft); padding-top: var(--space-4); margin-top: var(--space-4);
+}
+.verify-row { display: flex; justify-content: space-between; gap: var(--space-4); color: var(--text-muted); }
+.verify-row .verify-label { color: var(--text-faint); text-transform: uppercase; letter-spacing: .06em; font-size: var(--text-2xs); }
+.verify-row .verify-value { color: var(--text-muted); text-align: right; word-break: break-word; }
+
+/* ---------- Intelligence Card (provider / score / metrics / status /
+   verification / CTA — CTA visually separated from the intelligence
+   content via its own bordered footer, never merged into it) ---------- */
+.intel-card {
+  background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg);
+  padding: var(--space-6); box-shadow: var(--shadow-card);
+  display: flex; flex-direction: column; gap: var(--space-5);
+}
+.intel-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+.intel-card-title { display: flex; align-items: center; gap: var(--space-3); }
+.intel-card-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: var(--space-5); }
+.intel-card-status { display: flex; gap: 8px; flex-wrap: wrap; }
+.intel-card-cta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  border-top: 1px solid var(--border-soft); padding-top: var(--space-4);
+}
+
+/* ---------- Data row / Insight block (dashboard primitives) ---------- */
+.data-row {
+  display: flex; justify-content: space-between; gap: var(--space-4);
+  padding: 10px 0; border-bottom: 1px solid var(--border-soft); font-size: var(--text-sm);
+}
+.data-row:last-child { border-bottom: none; }
+.data-row .data-label { color: var(--text-faint); }
+.data-row .data-value { color: var(--text); font-family: var(--font-mono); text-align: right; }
+
+.insight-block {
+  background: var(--surface-2); border-left: 2px solid var(--blue);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-4) var(--space-5);
+}
+.insight-block .insight-title {
+  font-family: var(--font-mono); font-size: var(--text-2xs); text-transform: uppercase; letter-spacing: .1em;
+  color: var(--blue-bright); margin-bottom: 6px;
+}
+
+/* ---------- Existing gauge-bar: new optional blue modifier only
+   (default .gauge-bar-fill teal->gold gradient is untouched) ---------- */
+.gauge-bar-fill.blue { background: linear-gradient(90deg, var(--blue), var(--teal)); }
+
+@media (max-width: 600px) {
+  .metric-value.lg { font-size: var(--text-2xl); }
+  .intel-card-metrics { grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); }
+}
+
+/* ==========================================================
+   Phase 2b — Design System Extension (Visual Reference pass)
+   Additional primitives informed by the approved reference image,
+   still ADDITIVE ONLY and not yet applied to any page. Palette
+   stays on the already-approved direction (gold = primary accent /
+   CTA, teal = verification / secondary signal, blue = sparing third
+   accent) rather than the image's blue/purple-dominant look — see
+   chat confirmation. No "Business Score" card primitive is added:
+   Business Score must never be a user-facing element (businessscore.js
+   is intentionally never loaded by any end-user page).
+   ========================================================== */
+
+/* ---------- Numbered step wizard (e.g. Finder: Trading Style ->
+   Risk Profile -> Preferences -> Results) — alternative to the
+   existing .quiz-progress segmented bar, for a future step-by-step
+   header treatment. Does not replace .quiz-progress. ---------- */
+.step-track { display: flex; align-items: center; gap: 0; }
+.step-item { display: flex; align-items: center; gap: 8px; }
+.step-dot {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: 700;
+  background: var(--surface-2); border: 1px solid var(--border); color: var(--text-faint);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.step-item.done .step-dot { background: var(--teal-soft); border-color: rgba(63,220,198,.4); color: var(--teal-bright); }
+.step-item.active .step-dot { background: var(--gold); border-color: var(--gold); color: #171208; }
+.step-label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-faint); }
+.step-item.active .step-label { color: var(--text); }
+.step-item.done .step-label { color: var(--text-muted); }
+.step-connector { width: 28px; height: 1px; background: var(--border); margin: 0 6px; flex-shrink: 0; }
+.step-item.done + .step-connector { background: rgba(63,220,198,.4); }
+
+/* ---------- Metric Card: bordered container for a single Financial
+   Metric plus an optional qualitative caption (e.g. "92 /100" +
+   "Excellent Match"). The qualifier text itself must always be
+   derived from real score thresholds where used, never invented. ---------- */
+.metric-card {
+  background: var(--surface-2); border: 1px solid var(--border-soft); border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+.metric-qualifier { font-size: var(--text-xs); color: var(--text-faint); margin-top: 4px; }
+.metric-qualifier.positive { color: var(--teal-bright); }
+
+/* ---------- Trust badge row (icon + title + subtitle), e.g.
+   "FACT Verified / Official sources only" ---------- */
+.trust-badge { display: flex; align-items: center; gap: 12px; }
+.trust-badge-icon {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); flex-shrink: 0;
+  background: var(--surface-2); border: 1px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: center; color: var(--teal-bright);
+}
+.trust-badge-icon svg { width: 17px; height: 17px; }
+.trust-badge-title { font-size: var(--text-sm); font-weight: 600; color: var(--text); }
+.trust-badge-sub { font-size: var(--text-2xs); color: var(--text-faint); }
+
+/* ---------- Small circular verified-checkmark icon (compare tables) ---------- */
+.check-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  background: var(--status-verified-soft); color: var(--status-verified);
+}
+.check-badge svg { width: 11px; height: 11px; }
+
+/* ---------- Comparison table: optional "pinned"/emphasized column
+   modifier (adds to existing table/th/td rules, replaces nothing) ---------- */
+.table-pin-col { background: var(--surface-2); box-shadow: inset 1px 0 0 var(--border), inset -1px 0 0 var(--border); }
+th.table-pin-col { border-top: 2px solid var(--gold); }
+
+/* ---------- Research card decorative header: CSS-only abstract
+   gradient block (no stock imagery / fabricated photos — built
+   entirely from existing tokens) for use above an article-card. ---------- */
+.research-card-visual {
+  height: 120px; border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background:
+    radial-gradient(120% 140% at 15% 0%, rgba(232,163,61,.18), transparent 55%),
+    radial-gradient(120% 140% at 85% 100%, rgba(63,220,198,.16), transparent 55%),
+    linear-gradient(160deg, var(--surface-3), var(--surface-2));
+  position: relative; overflow: hidden;
+}
+.research-card-visual::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(var(--border-soft) 1px, transparent 1px), linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+  background-size: 22px 22px; opacity: .4;
+}
+
+/* ---------- CTA banner: stronger-emphasis card variant for
+   section-ending calls to action (gold-accented, per approved
+   palette — not the reference image's blue/purple). ---------- */
+.cta-banner {
+  background: linear-gradient(135deg, var(--surface-2), var(--surface));
+  border: 1px solid rgba(232,163,61,.3); border-radius: var(--radius-xl);
+  padding: var(--space-7) var(--space-6); text-align: center; box-shadow: var(--shadow-gold);
+}
+
+@media (max-width: 600px) {
+  .step-connector { width: 16px; }
+  .step-label { display: none; }
+  .step-item.active .step-label { display: inline; }
+}
+
+/* ==========================================================
+   Phase 4 — AI Finder Premium UX
+   HTML/CSS/presentation only. answers structure, computeWeights(),
+   scoreFirm(), matchFirms(), BASE_WEIGHTS, and Affiliate CTA logic
+   are untouched (assets/js/matchscore.js is not modified at all).
+   ========================================================== */
+.quiz-shell { max-width: 720px; }
+.quiz-step-header { margin-bottom: var(--space-7); }
+
+/* Decision Card: slightly more presence than the Step 21 baseline
+   .option (larger padding, a resting inner highlight, elevated
+   hover/selected states) — same class, same JS hooks, visual only. */
+.option { padding: 19px 20px; box-shadow: 0 1px 0 rgba(255,255,255,.02) inset; }
+.option:hover { box-shadow: var(--shadow-card); }
+.option.selected { box-shadow: 0 0 0 1px rgba(232,163,61,.22), var(--shadow-card); }
+
+/* Results: summary row above the ranked list (uses .metric primitives) */
+.result-summary { display: flex; align-items: flex-end; gap: var(--space-6); flex-wrap: wrap; margin-bottom: var(--space-6); }
+
+/* Result card: verification row + insight block spacing */
+.result-card-verify { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; margin: var(--space-4) 0; }
+.result-card .insight-block { margin-bottom: var(--space-4); }
+.result-card .prop-card-cta { padding-top: var(--space-4); border-top: 1px solid var(--border-soft); }
+
+@media (max-width: 600px) {
+  .result-summary { gap: var(--space-4); align-items: flex-start; }
+}
