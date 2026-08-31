@@ -6,11 +6,27 @@
 <title>Best Prop Firms | AITradingFinder</title>
 <meta name="description" content="AITradingFinder独自の標準ウェイトによるProp Firmランキング。個別最適化はAI Prop Firm Finderをご利用ください。">
 <link rel="canonical" href="https://aitradingfinder.com/best-prop-firms.html">
+<!-- Search Console ownership verification (STEP 24): placeholder only, NOT a
+     real token. Replace content="" with the real token from Google Search
+     Console when available — do not fabricate one. -->
+<meta name="google-site-verification" content="PLACEHOLDER_NOT_SET">
+<!-- GA4 (STEP 24): not yet connected — no Measurement ID has been issued.
+     When one is available, uncomment the two script tags below and replace
+     G-XXXXXXXXXX with the real Measurement ID. Until then, assets/js/analytics.js
+     safely no-ops against GA4 (see that file's header comment).
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body data-page="best-prop-firms">
 
 <nav class="nav">
   <div class="wrap">
@@ -57,6 +73,7 @@
 <script src="assets/data/propfirms.js"></script>
 <script src="assets/js/matchscore.js"></script>
 <script src="assets/js/ui.js"></script>
+<script src="assets/js/analytics.js"></script>
 <script>
 document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
 
@@ -69,15 +86,15 @@ const ranked = matchFirms(standardAnswers, PROP_FIRMS);
 // the plain official site link so an unapproved affiliate URL is never
 // generated or displayed as a CTA.
 function reviewLink(firm) {
-  return firm.id === 'fintokei' ? '<a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>' : '';
+  return firm.id === 'fintokei' ? `<a href="fintokei-review.html" class="btn btn-outline" data-track="review_click" data-firm-id="${firm.id}">レビューを見る</a>` : '';
 }
 function officialCta(firm) {
   const approved = firm.affiliate_link && firm.affiliate_link.status === 'APPROVED';
   if (approved) {
-    return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">公式サイト →</a>`;
+    return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" data-firm-id="${firm.id}" class="btn btn-primary">公式サイト →</a>`;
   }
   const url = firm.fact.basic.official_url;
-  return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" class="btn btn-primary">公式サイトを見る →</a>` : '';
+  return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" data-firm-id="${firm.id}" class="btn btn-primary">公式サイトを見る →</a>` : '';
 }
 
 document.getElementById('rankingList').innerHTML = ranked.map((r, idx) => `

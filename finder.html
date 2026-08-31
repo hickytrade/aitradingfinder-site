@@ -6,11 +6,27 @@
 <title>AI Prop Firm Finder | AITradingFinder</title>
 <meta name="description" content="5つの質問に答えるだけで、AIがあなたに最も適合するProp Firmを診断・推薦します。">
 <link rel="canonical" href="https://aitradingfinder.com/finder.html">
+<!-- Search Console ownership verification (STEP 24): placeholder only, NOT a
+     real token. Replace content="" with the real token from Google Search
+     Console when available — do not fabricate one. -->
+<meta name="google-site-verification" content="PLACEHOLDER_NOT_SET">
+<!-- GA4 (STEP 24): not yet connected — no Measurement ID has been issued.
+     When one is available, uncomment the two script tags below and replace
+     G-XXXXXXXXXX with the real Measurement ID. Until then, assets/js/analytics.js
+     safely no-ops against GA4 (see that file's header comment).
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body data-page="finder">
 
 <nav class="nav">
   <div class="wrap">
@@ -147,6 +163,7 @@
 <script src="assets/data/propfirms.js"></script>
 <script src="assets/js/matchscore.js"></script>
 <script src="assets/js/ui.js"></script>
+<script src="assets/js/analytics.js"></script>
 <script>
 document.getElementById('disclaimers').innerHTML = Object.values(SITE_DISCLAIMERS).map(t => `<p>${t}</p>`).join('');
 
@@ -201,10 +218,15 @@ function showStep(i) {
   renderProgress();
 }
 
+let finderStartedFired = false;
 steps.forEach((step, i) => {
   const key = step.querySelector('.options').dataset.key;
   step.querySelectorAll('.option').forEach(opt => {
     opt.addEventListener('click', () => {
+      if (i === 0 && !finderStartedFired) {
+        finderStartedFired = true;
+        AITF_ANALYTICS.track('finder_started', { source_page: 'finder' });
+      }
       step.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
       opt.classList.add('selected');
       answers[key] = opt.dataset.value;
@@ -264,6 +286,12 @@ function showResults() {
   const list = document.getElementById('resultsList');
   const noDataNote = document.getElementById('noDataNote');
 
+  AITF_ANALYTICS.track('finder_completed', {
+    source_page: 'finder',
+    result_count: ranked.length,
+    top_firm_id: ranked.length ? ranked[0].firm.id : null
+  });
+
   if (ranked.length === 0) {
     noDataNote.style.display = 'block';
     noDataNote.textContent = 'v0.1時点ではデータベースに登録済みのProp Firmがありません。';
@@ -276,15 +304,15 @@ function showResults() {
   // back to the plain official site link so an unapproved affiliate URL is
   // never generated or displayed as a CTA.
   function reviewLink(firm) {
-    return firm.id === 'fintokei' ? '<a href="fintokei-review.html" class="btn btn-outline">レビューを見る</a>' : '';
+    return firm.id === 'fintokei' ? `<a href="fintokei-review.html" class="btn btn-outline" data-track="review_click" data-firm-id="${firm.id}">レビューを見る</a>` : '';
   }
   function officialCta(firm) {
     const approved = firm.affiliate_link && firm.affiliate_link.status === 'APPROVED';
     if (approved) {
-      return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" class="btn btn-primary">View ${firm.fact.basic.brand_name}（公式）→</a>`;
+      return `<a href="${firm.affiliate_link.display_url}" target="_blank" rel="nofollow sponsored noopener" data-firm-id="${firm.id}" class="btn btn-primary">View ${firm.fact.basic.brand_name}（公式）→</a>`;
     }
     const url = firm.fact.basic.official_url;
-    return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" class="btn btn-primary">${firm.fact.basic.brand_name}公式サイトを見る →</a>` : '';
+    return url ? `<a href="${url}" target="_blank" rel="nofollow noopener" data-firm-id="${firm.id}" class="btn btn-primary">${firm.fact.basic.brand_name}公式サイトを見る →</a>` : '';
   }
 
   list.innerHTML = ranked.map((r, idx) => {
