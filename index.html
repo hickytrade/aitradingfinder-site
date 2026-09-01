@@ -62,36 +62,66 @@
 <header class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <div class="eyebrow">AI-POWERED PROP FIRM INTELLIGENCE</div>
-      <h1>Find the Prop Firm<br>That Fits <span style="color:var(--gold)">You</span> Best.</h1>
+      <div class="idx-pill-eyebrow"><span class="dot"></span>AI-POWERED PROP FIRM INTELLIGENCE</div>
+      <h1>あなたに最適な <span style="white-space:nowrap;">Prop Firm</span><br class="idx-hero-br"><span style="white-space:nowrap;">（プロップファーム）</span>を<span style="background:linear-gradient(135deg,var(--blue-bright),var(--violet-bright));-webkit-background-clip:text;background-clip:text;color:transparent;">見つける。</span></h1>
       <p class="lead">AIが公式一次情報で検証済みのデータをもとに、あなたのトレードスタイル・資金・リスク許容度に最も合うProp Firmを診断します。「人気」ではなく「あなたに合う」を見つけるためのツールです。</p>
       <div class="hero-actions">
-        <a href="finder.html" class="btn btn-primary">Start AI Match →</a>
+        <a href="finder.html" class="btn btn-idx-primary">AIマッチを開始する →</a>
         <a href="fintokei-review.html" class="btn btn-outline" data-track="review_click" data-firm-id="fintokei">Fintokeiのレビューを見る</a>
       </div>
-      <div class="hero-stats" id="heroStats">
-        <div><strong>4</strong><span>掲載中のProp Firm</span></div>
-        <div><strong>5</strong><span>問のAI診断</span></div>
-        <div><strong class="mono">100pt</strong><span>Match Scoreロジック</span></div>
-      </div>
+      <div class="idx-hero-fine">無料 ・ 登録不要 ・ 所要1分</div>
     </div>
 
-    <div class="gauge-card">
-      <div class="gauge-wrap">
-        <div class="gauge" data-pct="94"><span class="gauge-num">94</span></div>
-        <div class="gauge-meta">
-          <div class="ai-match-label">AI Match Score</div>
-          <div class="rank-badge">#1 MATCH（サンプル）</div>
-          <div class="firm-name">Fintokei</div>
-          <div class="why">EA対応 / ドローダウン許容 / 口座サイズ選択肢 が一致</div>
-        </div>
+    <div class="card orbit-card">
+      <div class="orbit-wrap">
+        <svg width="320" height="320" viewBox="-40 0 460 420" role="img" aria-label="AI Match Score のサンプル結果イメージ">
+          <defs>
+            <linearGradient id="idxRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#5B8DEF"/>
+              <stop offset="100%" stop-color="#8B7CF6"/>
+            </linearGradient>
+            <filter id="idxSoftGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="7" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <circle cx="210" cy="210" r="120" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
+          <circle cx="210" cy="210" r="160" fill="none" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="2 6"/>
+          <circle cx="210" cy="210" r="200" fill="none" stroke="var(--border-soft)" stroke-width="1" stroke-dasharray="2 6"/>
+          <line class="orbit-line" x1="210" y1="115" x2="210" y2="60"/>
+          <line class="orbit-line" x1="284.3" y1="150.8" x2="327.3" y2="116.5"/>
+          <line class="orbit-line" x1="302.6" y1="231.1" x2="356.3" y2="243.4"/>
+          <line class="orbit-line" x1="251.2" y1="295.6" x2="275.1" y2="345.2"/>
+          <line class="orbit-line" x1="168.8" y1="295.6" x2="144.9" y2="345.2"/>
+          <line class="orbit-line" x1="117.4" y1="231.1" x2="63.7" y2="243.4"/>
+          <line class="orbit-line" x1="135.7" y1="150.8" x2="92.7" y2="116.5"/>
+          <circle class="orbit-node" cx="210" cy="60" r="4.5"/>
+          <circle class="orbit-node" cx="327.3" cy="116.5" r="4.5"/>
+          <circle class="orbit-node" cx="356.3" cy="243.4" r="4.5"/>
+          <circle class="orbit-node" cx="275.1" cy="345.2" r="4.5"/>
+          <circle class="orbit-node" cx="144.9" cy="345.2" r="4.5"/>
+          <circle class="orbit-node" cx="63.7" cy="243.4" r="4.5"/>
+          <circle class="orbit-node" cx="92.7" cy="116.5" r="4.5"/>
+          <text x="210" y="42" text-anchor="middle" class="orbit-label">コスト</text>
+          <text x="333" y="112" text-anchor="start" class="orbit-label">ドローダウン</text>
+          <text x="362" y="248" text-anchor="start" class="orbit-label">ペイアウト</text>
+          <text x="281" y="368" text-anchor="start" class="orbit-label">約款ルール</text>
+          <text x="138.9" y="368" text-anchor="end" class="orbit-label">柔軟性</text>
+          <text x="57.7" y="248" text-anchor="end" class="orbit-label">EAポリシー</text>
+          <text x="86.7" y="112" text-anchor="end" class="orbit-label">プラットフォーム</text>
+          <circle cx="210" cy="210" r="92" fill="#8B7CF6" opacity=".18" filter="url(#idxSoftGlow)"/>
+          <circle cx="210" cy="210" r="90" fill="var(--surface)" stroke="url(#idxRingGrad)" stroke-width="2.5"/>
+          <text x="210" y="203" text-anchor="middle" class="orbit-center-score">94</text>
+          <text x="210" y="226" text-anchor="middle" class="orbit-center-lbl">MATCH</text>
+          <text x="210" y="240" text-anchor="middle" class="orbit-center-lbl">SCORE</text>
+        </svg>
       </div>
-      <div class="gauge-bars">
-        <div class="gauge-bar-row"><span>EA対応</span><span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:90%"></span></span><span>90</span></div>
-        <div class="gauge-bar-row"><span>ドローダウン</span><span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:70%"></span></span><span>70</span></div>
-        <div class="gauge-bar-row"><span>報酬・出金</span><span class="gauge-bar-track"><span class="gauge-bar-fill" style="width:80%"></span></span><span>80</span></div>
+      <div style="text-align:center;margin-top:14px;">
+        <div class="mono" style="font-size:var(--text-2xs);letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);">#1 MATCH（サンプル）</div>
+        <div style="font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin:4px 0;">Fintokei</div>
+        <div style="font-size:var(--text-xs);color:var(--text-faint);">EA対応 / ドローダウン許容 / 口座サイズ選択肢 が一致</div>
       </div>
-      <p style="font-size:var(--text-xs);color:var(--text-faint);margin:16px 0 0;">※上記はAI Prop Firm Finderの結果画面イメージです。実際のスコアは回答内容によって変わります。</p>
+      <p style="font-size:var(--text-xs);color:var(--text-faint);margin:16px 0 0;text-align:center;">※上記はAI Prop Firm Finderの結果画面イメージです。実際のスコアは回答内容によって変わります。軸は実際のMatch Score算出カテゴリ（cost/drawdown/flexibility/ea/payout/rules/platform）に対応しています。</p>
     </div>
   </div>
 </header>
@@ -103,12 +133,36 @@
       <h2>最初の1歩は、5つの質問だけ。</h2>
       <p>AI Prop Firm Finderに答えると、AI Match Scoreエンジンがあなたの回答に合わせて評価の重み付けを変え、Prop Firm Databaseと照合。TOP候補を根拠つきで提示します。</p>
     </div>
-    <div class="flow">
-      <span class="node">ユーザー情報入力</span><span class="arrow">→</span>
-      <span class="node">AI Match Score計算</span><span class="arrow">→</span>
-      <span class="node">おすすめProp Firm</span><span class="arrow">→</span>
-      <span class="node">比較ページ</span><span class="arrow">→</span>
-      <span class="node">公式サイト</span>
+    <div class="idx-steps-row">
+      <div class="idx-step">
+        <div class="idx-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
+        <div class="idx-step-label">1. ユーザー情報入力</div>
+        <div class="idx-step-sub">トレードスタイル・資金を回答</div>
+        <div class="idx-step-arrow"><svg viewBox="0 0 60 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"><path d="M0 5h52M48 1l4 4-4 4"/></svg></div>
+      </div>
+      <div class="idx-step">
+        <div class="idx-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg></div>
+        <div class="idx-step-label">2. AI Match Score計算</div>
+        <div class="idx-step-sub">回答に応じて重み付けを調整</div>
+        <div class="idx-step-arrow"><svg viewBox="0 0 60 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"><path d="M0 5h52M48 1l4 4-4 4"/></svg></div>
+      </div>
+      <div class="idx-step">
+        <div class="idx-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.4-3 8-7 9-4-1-7-4.6-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="idx-step-label">3. おすすめProp Firm</div>
+        <div class="idx-step-sub">根拠つきでTOP候補を提示</div>
+        <div class="idx-step-arrow"><svg viewBox="0 0 60 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"><path d="M0 5h52M48 1l4 4-4 4"/></svg></div>
+      </div>
+      <div class="idx-step">
+        <div class="idx-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="16" rx="1.2"/><rect x="14" y="4" width="7" height="10" rx="1.2"/></svg></div>
+        <div class="idx-step-label">4. 比較ページ</div>
+        <div class="idx-step-sub">条件を横並びで比較検討</div>
+        <div class="idx-step-arrow"><svg viewBox="0 0 60 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"><path d="M0 5h52M48 1l4 4-4 4"/></svg></div>
+      </div>
+      <div class="idx-step">
+        <div class="idx-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></div>
+        <div class="idx-step-label">5. 公式サイト</div>
+        <div class="idx-step-sub">選んだProp Firmへ申込</div>
+      </div>
     </div>
   </div>
 </section>
@@ -120,7 +174,18 @@
       <h2>Provider Intelligence</h2>
       <p>AI Provider Scoreは、公式一次情報（FACT）を基にしたAITradingFinder独自の品質評価です。あなた個人に最適化された診断は<a href="finder.html" style="color:var(--teal)">AI Prop Firm Finder</a>でご確認ください。</p>
     </div>
-    <div id="topMatches" class="grid-3"></div>
+    <div id="topMatches" class="idx-firm-grid"></div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="card idx-stats-bar">
+      <div class="idx-stat-item"><div class="idx-stat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><div><span class="idx-stat-num">4</span><span class="idx-stat-lbl">掲載中のProp Firm</span></div></div>
+      <div class="idx-stat-item"><div class="idx-stat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div><div><span class="idx-stat-num">5</span><span class="idx-stat-lbl">問のAI診断</span></div></div>
+      <div class="idx-stat-item"><div class="idx-stat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg></div><div><span class="idx-stat-num mono">100pt</span><span class="idx-stat-lbl">Match Scoreロジック</span></div></div>
+      <div class="idx-stat-item"><div class="idx-stat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div><div><span class="idx-stat-num">100%</span><span class="idx-stat-lbl">Independent</span></div></div>
+    </div>
   </div>
 </section>
 
@@ -131,30 +196,30 @@
       <h2>なぜAITradingFinderのデータを信頼できるのか</h2>
       <p>「AIだから信頼してください」ではなく、検証プロセスそのものを公開します。</p>
     </div>
-    <div class="grid-2" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
-      <div class="trust-badge">
-        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.8-3 8-7 10-4-2-7-5.2-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+    <div class="card idx-trust-row">
+      <div class="idx-trust-item">
+        <div class="idx-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.8-3 8-7 10-4-2-7-5.2-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <div>
           <div class="trust-badge-title">FACT Verified</div>
           <div class="trust-badge-sub">公式一次情報のみ使用</div>
         </div>
       </div>
-      <div class="trust-badge">
-        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+      <div class="idx-trust-item">
+        <div class="idx-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
         <div>
           <div class="trust-badge-title">Independent</div>
           <div class="trust-badge-sub">Affiliate収益はMatch Scoreに不使用</div>
         </div>
       </div>
-      <div class="trust-badge">
-        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+      <div class="idx-trust-item">
+        <div class="idx-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
         <div>
           <div class="trust-badge-title">Transparent</div>
           <div class="trust-badge-sub">取得日・出典を全項目に明記</div>
         </div>
       </div>
-      <div class="trust-badge">
-        <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <div class="idx-trust-item">
+        <div class="idx-trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
         <div>
           <div class="trust-badge-title">Updated</div>
           <div class="trust-badge-sub" id="lastVerifiedText">最終確認日を読み込み中…</div>
@@ -184,7 +249,7 @@
     <div class="cta-banner">
       <h2 style="margin-bottom:10px;">今すぐAI診断を試す</h2>
       <p style="max-width:50ch;margin:0 auto 24px;">所要時間は約1分。トレードスタイルに最も合うProp Firmと、その理由をスコアの内訳付きで確認できます。</p>
-      <a href="finder.html" class="btn btn-primary">Start AI Match →</a>
+      <a href="finder.html" class="btn btn-idx-primary">Start AI Match →</a>
     </div>
   </div>
 </section>
@@ -228,34 +293,46 @@ function homeIntelLink(firm) {
     : `<a href="comparison.html" class="btn btn-outline">View Intelligence</a>`;
 }
 function fmtOrDash(v, suffix) {
-  return (v === null || v === undefined) ? '<span class="tag unknown">未確認</span>' : `${v}${suffix || ''}`;
+  return (v === null || v === undefined) ? '未確認' : `${v}${suffix || ''}`;
+}
+// Step 25: per-firm accent + mark, purely presentational (id-keyed, not a FACT).
+// Falls back to a neutral violet initial mark for any firm not in this list,
+// so adding a firm to PROP_FIRMS never breaks rendering.
+const IDX_FIRM_STYLE = {
+  fintokei:   { color: 'var(--violet-bright)', soft: 'var(--violet-soft)', border: 'rgba(139,124,246,.35)', icon: '<path d="M12 2l9 9-9 9-9-9z"/>' },
+  ftmo:       { color: 'var(--blue-bright)',   soft: 'var(--blue-soft)',   border: 'rgba(91,141,239,.35)',  icon: '<path d="M4 15l6-10 6 10M4 15h12M10 15v5"/>' },
+  fundednext: { color: 'var(--teal-bright)',   soft: 'var(--teal-soft)',   border: 'rgba(63,220,198,.35)',  icon: '<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>' },
+  the5ers:    { color: 'var(--gold-bright)',   soft: 'var(--gold-soft)',  border: 'rgba(232,163,61,.35)',   text: '5%' }
+};
+function idxFirmLogo(firm) {
+  const s = IDX_FIRM_STYLE[firm.id] || { color: 'var(--violet-bright)', soft: 'var(--violet-soft)', border: 'rgba(139,124,246,.35)' };
+  const inner = s.text
+    ? `<span style="font-family:var(--font-display);font-weight:700;font-size:.8rem;color:${s.color};">${s.text}</span>`
+    : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${s.color}" stroke-width="1.8">${s.icon}</svg>`;
+  return `<div class="idx-firm-logo" style="background:${s.soft};border:1px solid ${s.border};">${inner}</div>`;
 }
 
-document.getElementById('topMatches').innerHTML = rankedHome.map(r => {
+document.getElementById('topMatches').innerHTML = rankedHome.map((r, i) => {
   const f = r.firm;
   const steps = f.fact.plans && f.fact.plans[0] ? f.fact.plans[0].evaluation_steps : null;
   const split = f.fact.plans && f.fact.plans[0] ? (f.fact.plans[0].profit_split_pct ?? f.fact.plans[0].profit_split_max_pct) : null;
   return `
-    <div class="intel-card">
-      <div class="intel-card-header">
-        <div class="intel-card-title">
-          <div class="prop-logo">${f.fact.basic.brand_name.charAt(0)}</div>
-          <div>
-            <div class="prop-card-name">${f.fact.basic.brand_name}</div>
-            <span class="status-pill verified"><span class="status-dot verified"></span>Verified</span>
-          </div>
-        </div>
-        <div class="metric">
-          <div class="metric-value accent-gold">${f.provider_score.overall_provider_score}</div>
-          <div class="metric-label">AI Score</div>
+    <div class="idx-firm-card${i === 0 ? ' top' : ''}">
+      <div class="idx-firm-head">
+        ${idxFirmLogo(f)}
+        <div>
+          <div class="idx-firm-name">${f.fact.basic.brand_name}</div>
+          <span class="idx-verified-tag">✓ Verified</span>
         </div>
       </div>
-      <div class="intel-card-metrics">
-        <div class="metric"><div class="metric-value sm">${fmtOrDash(steps)}</div><div class="metric-label">Steps</div></div>
-        <div class="metric"><div class="metric-value sm">${fmtOrDash(split, '%')}</div><div class="metric-label">Split</div></div>
-        <div class="metric"><div class="metric-value sm">${r.score}</div><div class="metric-label">Match</div></div>
+      <div class="idx-firm-score-row"><span class="idx-firm-score">${f.provider_score.overall_provider_score}</span><span class="idx-firm-score-sub">/ AI SCORE</span></div>
+      ${i === 0 ? '<span class="idx-firm-badge-pill">AI Recommended</span>' : ''}
+      <div class="idx-firm-stats">
+        <div class="idx-firm-stat-row"><span>評価ステップ</span><b>${fmtOrDash(steps)}</b></div>
+        <div class="idx-firm-stat-row"><span>利益分配</span><b>${fmtOrDash(split, '%')}</b></div>
+        <div class="idx-firm-stat-row"><span>Match Score</span><b>${r.score}</b></div>
       </div>
-      <div class="intel-card-cta">
+      <div class="idx-firm-cta">
         ${homeIntelLink(f)}
         ${homeOfficialCta(f)}
       </div>
